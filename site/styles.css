@@ -45,16 +45,16 @@ h1 em { display: block; margin-top: 9px; color: var(--lime); font-style: normal;
 .glow-two { width: 290px; height: 290px; left: 5%; bottom: 5%; background: radial-gradient(circle, rgba(70,175,123,.13), transparent 70%); }
 .app-window { position: relative; width: min(100%, 660px); overflow: hidden; border: 1px solid rgba(223,244,231,.16); border-radius: 20px; background: #09120f; box-shadow: 0 48px 100px rgba(0,0,0,.42), inset 0 1px rgba(255,255,255,.04); transform: perspective(1200px) rotateY(-3deg) rotateX(1deg); }
 .window-topbar { height: 55px; display: flex; align-items: center; justify-content: space-between; padding: 0 17px; border-bottom: 1px solid var(--line); background: #101d18; }
-.window-brand { display: flex; align-items: center; gap: 9px; font-size: 13px; }
-.window-brand img { border-radius: 7px; }
+.window-brand { display: flex; align-items: center; }
+.window-brand img { display: block; width: 100px; height: 42px; object-fit: contain; border-radius: 0; }
 .window-controls { display: flex; gap: 7px; }
 .window-controls span { width: 8px; height: 8px; border-radius: 50%; background: #3c4c44; }
-.session-tabs { height: 48px; display: flex; align-items: center; gap: 6px; padding: 0 12px; border-bottom: 1px solid var(--line); background: #0b1511; }
-.session-tab { display: flex; align-items: center; gap: 7px; padding: 8px 12px; border-radius: 8px; color: #708078; font-size: 11px; font-weight: 650; }
+.session-tabs { min-height: 50px; display: flex; align-items: center; gap: 4px; padding: 0 9px; border-bottom: 1px solid var(--line); background: #0b1511; }
+.session-tab { display: flex; align-items: center; gap: 5px; padding: 7px 8px; border-radius: 8px; color: #708078; font-size: 9px; font-weight: 650; white-space: nowrap; }
 .session-tab b { display: grid; place-items: center; width: 21px; height: 21px; border-radius: 5px; background: #17251f; font-size: 9px; }
 .session-tab.active { background: #18271f; color: #e6eee8; }
 .session-tab.active b { background: var(--lime); color: var(--ink); }
-.secure-label { margin-left: auto; color: #617068; font-size: 9px; text-transform: uppercase; letter-spacing: .8px; }
+.secure-label { margin-left: auto; color: #617068; font-size: 8px; text-transform: uppercase; letter-spacing: .6px; white-space: nowrap; }
 .game-preview { min-height: 340px; display: grid; grid-template-columns: 1fr 155px; padding: 12px; gap: 12px; }
 .game-scene { min-width: 0; padding: 19px; border-radius: 12px; background: radial-gradient(circle at 70% 18%, rgba(176,255,91,.09), transparent 27%), linear-gradient(145deg,#17251e,#0d1813); }
 .scene-topline { display: flex; justify-content: space-between; color: #63736a; font-size: 9px; text-transform: uppercase; letter-spacing: .8px; }
@@ -62,9 +62,9 @@ h1 em { display: block; margin-top: 9px; color: var(--lime); font-style: normal;
 .scene-title { width: 63%; margin-top: 70px; color: #dfe9e3; font-size: 22px; font-weight: 730; letter-spacing: -.6px; }
 .scene-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 7px; margin-top: 20px; }
 .scene-grid span { height: 48px; border: 1px solid rgba(255,255,255,.06); border-radius: 8px; background: linear-gradient(145deg,rgba(255,255,255,.06),rgba(255,255,255,.015)); }
-.session-list { padding: 13px 10px; border-radius: 12px; background: #0e1a15; }
+.session-list { display: flex; flex-direction: column; padding: 13px 10px; border-radius: 12px; background: #0e1a15; }
 .session-list > p { margin: 2px 5px 14px; color: #56645d; font-size: 8px; font-weight: 800; letter-spacing: 1.2px; }
-.account { display: flex; align-items: center; gap: 9px; margin-bottom: 7px; padding: 10px 8px; border-radius: 9px; color: #7a8b82; }
+.account { display: flex; align-items: center; gap: 9px; margin-bottom: 5px; padding: 7px 8px; border-radius: 9px; color: #7a8b82; }
 .account > span { width: 27px; height: 27px; display: grid; place-items: center; border-radius: 7px; background: #1a2822; font-size: 10px; font-weight: 800; }
 .account div { display: flex; flex-direction: column; gap: 2px; }
 .account b { color: #c4cfc9; font-size: 10px; }
@@ -72,7 +72,7 @@ h1 em { display: block; margin-top: 9px; color: var(--lime); font-style: normal;
 .account.active { background: rgba(184,255,91,.07); }
 .account.active > span { background: var(--lime); color: var(--ink); }
 .account.active small { color: var(--lime-dark); }
-.session-note { margin: 96px 5px 0; color: #506058; font-size: 9px; line-height: 1.5; }
+.session-note { margin: auto 5px 0; padding-top: 10px; color: #506058; font-size: 9px; line-height: 1.5; }
 .floating-card { position: absolute; right: -16px; bottom: 20px; display: flex; align-items: center; gap: 11px; padding: 14px 17px; border: 1px solid rgba(184,255,91,.22); border-radius: 12px; background: rgba(17,31,25,.96); box-shadow: 0 18px 45px rgba(0,0,0,.4); }
 .status-dot { width: 10px; height: 10px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 17px rgba(184,255,91,.8); }
 .floating-card div { display: flex; flex-direction: column; gap: 3px; }
@@ -103,13 +103,16 @@ h1 em { display: block; margin-top: 9px; color: var(--lime); font-style: normal;
   .button { width: 100%; justify-content: space-between; }
   .product-stage { min-height: 360px; }
   .game-preview { min-height: 270px; grid-template-columns: 1fr 105px; }
-  .session-tabs { overflow: hidden; }
+  .session-tabs { gap: 2px; overflow: hidden; padding-inline: 5px; }
+  .session-tab { gap: 3px; padding: 6px 4px; font-size: 7.5px; }
+  .session-tab b { width: 18px; height: 18px; font-size: 7px; }
   .secure-label { display: none; }
   .scene-title { margin-top: 40px; font-size: 17px; }
   .scene-grid span { height: 34px; }
   .session-list { padding-inline: 5px; }
-  .account { gap: 5px; padding-inline: 4px; }
+  .account { gap: 5px; padding: 4px; }
   .account > span { width: 22px; height: 22px; }
+  .account b { font-size: 8px; }
   .session-note { display: none; }
   .floating-card { right: 5px; bottom: -18px; }
   .hero-strip { grid-template-columns: 1fr; }
@@ -142,8 +145,8 @@ h1 em { display: block; margin-top: 9px; color: var(--lime); font-style: normal;
 .feature-card h3 { position: relative; margin: 23px 0 9px; font-size: 23px; letter-spacing: -.8px; }
 .feature-card p { position: relative; max-width: 500px; margin: 0; color: #84958c; font-size: 14px; line-height: 1.6; }
 .feature-symbol { position: relative; color: var(--lime); font-size: 74px; line-height: 1; font-weight: 300; text-shadow: 0 0 35px rgba(184,255,91,.18); }
-.mini-sessions { position: relative; width: min(100%, 480px); display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
-.mini-sessions span { min-height: 86px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(184,255,91,.16); border-radius: 12px; background: #101e18; color: #a8b7af; font-size: 12px; font-weight: 750; }
+.mini-sessions { position: relative; width: min(100%, 520px); display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
+.mini-sessions span { min-height: 72px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(184,255,91,.16); border-radius: 12px; background: #101e18; color: #a8b7af; font-size: 11px; font-weight: 750; }
 .mini-sessions span:first-child { background: rgba(184,255,91,.1); color: var(--lime); }
 .manual-card { background: linear-gradient(135deg, rgba(184,255,91,.1), rgba(255,255,255,.018) 58%); }
 .manual-copy { position: relative; display: flex; flex-direction: column; color: #718279; font-size: 30px; line-height: 1.1; letter-spacing: -1px; }
@@ -224,6 +227,8 @@ h1 em { display: block; margin-top: 9px; color: var(--lime); font-style: normal;
   .section-heading h2, .support-copy h2 { font-size: 41px; letter-spacing: -2px; }
   .feature-grid { grid-template-columns: 1fr; }
   .feature-card { min-height: 280px; padding: 24px; }
+  .mini-sessions { grid-template-columns: 1fr 1fr; }
+  .mini-sessions span { min-height: 58px; }
   .referral-section { align-items: stretch; flex-direction: column; padding: 38px 28px; }
   .referral-button { width: 100%; justify-content: space-between; }
   .download-section { padding: 88px 0; }
