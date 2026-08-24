@@ -1,7 +1,6 @@
 package br.com.hunterafarm;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.ClipData;
@@ -37,6 +36,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.ComponentActivity;
+import androidx.activity.OnBackPressedCallback;
 import androidx.webkit.WebSettingsCompat;
 import androidx.webkit.WebViewCompat;
 import androidx.webkit.WebViewFeature;
@@ -51,7 +52,7 @@ import java.util.Locale;
  * Mobile player that keeps at most one game WebView alive. Every account uses a
  * dedicated AndroidX WebKit profile, keeping cookies and storage isolated.
  */
-public final class MainActivity extends Activity {
+public final class MainActivity extends ComponentActivity {
     private static final String WEBVIEW_PACKAGE = "com.google.android.webview";
     private static final String PIX_PAYLOAD = "00020101021126580014br.gov.bcb.pix01369d2f23e4-d823-4a79-a3aa-545b4b6d3e9a5204000053039865802BR5922ACACIO SANTOS DA SILVA6010POCO VERDE62070503***6304638F";
 
@@ -93,6 +94,7 @@ public final class MainActivity extends Activity {
         );
 
         setupActions();
+        setupBackNavigation();
         persistSlotState();
         renderAccountControls();
 
@@ -161,6 +163,22 @@ public final class MainActivity extends Activity {
         closeAccountButton.setOnClickListener(view -> confirmCloseSelectedAccount());
         supportButton.setOnClickListener(view -> showSupportDialog());
         compatibilityBanner.setOnClickListener(view -> showCompatibilityDialog());
+    }
+
+    private void setupBackNavigation() {
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                if (activeWebView != null && activeWebView.canGoBack()) {
+                    activeWebView.goBack();
+                    return;
+                }
+
+                setEnabled(false);
+                getOnBackPressedDispatcher().onBackPressed();
+                setEnabled(true);
+            }
+        });
     }
 
     private boolean supportsMultipleProfilesSafely() {
@@ -749,16 +767,6 @@ public final class MainActivity extends Activity {
             activeWebView.pauseTimers();
         }
         super.onPause();
-    }
-
-    @Override
-    @SuppressWarnings("deprecation")
-    public void onBackPressed() {
-        if (activeWebView != null && activeWebView.canGoBack()) {
-            activeWebView.goBack();
-            return;
-        }
-        super.onBackPressed();
     }
 
     @Override
