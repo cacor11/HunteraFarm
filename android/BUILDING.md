@@ -37,7 +37,7 @@ Tambem e possivel abrir a pasta `android` no Android Studio e executar a configu
 
 O workflow `Android Beta` executa analise do codigo, testes unitarios e a compilacao sempre que houver mudancas no projeto Android. Ao terminar, o APK pode ser baixado na pagina da execucao, na secao **Artifacts**, com o nome `HunteraFarm-Android-Beta-*`.
 
-Dentro do artefato, o arquivo publico se chama `HunteraFarm-Android-0.1.0-beta.apk` e acompanha um `SHA256SUMS.txt` para verificacao de integridade.
+Dentro do artefato, o arquivo publico se chama `HunteraFarm-Android-0.1.1-beta.apk` e acompanha um `SHA256SUMS.txt` para verificacao de integridade.
 
 ## Aviso sobre a assinatura
 
