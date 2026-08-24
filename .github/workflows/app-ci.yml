@@ -83,3 +83,61 @@ jobs:
             app/dist/SHA256SUMS.txt
           if-no-files-found: error
           retention-days: 14
+
+  macos:
+    name: Testes e pacote macOS
+    runs-on: macos-latest
+    defaults:
+      run:
+        working-directory: app
+
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+
+      - name: Preparar pnpm e Node.js
+        uses: pnpm/setup@c8e77b72cd6022852162c92aa10e7e72b7209c9b # v2
+        with:
+          version: 11.19.0
+          runtime: node@24
+          cache: true
+          cache-dependency-path: app/pnpm-lock.yaml
+          package-json-file: app/package.json
+          install: false
+
+      - name: Instalar dependências fixadas
+        run: pnpm install --frozen-lockfile
+
+      - name: Executar testes
+        run: pnpm test
+
+      - name: Testar inicialização segura
+        run: pnpm smoke
+
+      - name: Testar criação e destruição das telas
+        run: pnpm smoke:lifecycle
+
+      - name: Criar pacotes de revisão sem assinatura da Apple
+        run: pnpm dist:mac
+
+      - name: Gerar hashes SHA-256
+        run: shasum -a 256 -b dist/*.dmg dist/*.zip | sed 's| \*dist/| *|' > dist/SHA256SUMS.txt
+
+      - name: Atestar a procedência dos pacotes
+        if: github.event_name != 'pull_request'
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4
+        with:
+          subject-path: |
+            app/dist/*.dmg
+            app/dist/*.zip
+
+      - name: Guardar pacotes para revisão
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
+        with:
+          name: HunteraFarm-1.2.0-macos-unsigned-review
+          path: |
+            app/dist/*.dmg
+            app/dist/*.zip
+            app/dist/SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 14

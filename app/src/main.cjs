@@ -50,6 +50,9 @@ const ACCOUNT_LABELS = Array.from(
 const isSessionSmokeTest = process.argv.includes('--smoke-test')
 const isLifecycleSmokeTest = process.argv.includes('--lifecycle-smoke-test')
 const isSmokeTest = isSessionSmokeTest || isLifecycleSmokeTest
+const IS_MAC = process.platform === 'darwin'
+// O macOS usa o ícone do próprio pacote .app e não lê arquivos .ico.
+const WINDOW_ICON = IS_MAC ? undefined : path.join(__dirname, '..', 'assets', 'icon.ico')
 
 let mainWindow = null
 let supportWindow = null
@@ -62,7 +65,14 @@ const configuredSessions = new WeakSet()
 
 app.setName(APP_NAME)
 app.setAppUserModelId('br.com.hunterafarm.app')
-Menu.setApplicationMenu(null)
+// No macOS a barra de menus é do sistema: sem ela o app perde Cmd+Q, Cmd+W e
+// copiar/colar (necessário no login do Google). Só os papéis padrão são usados,
+// sem recarregar nem DevTools.
+Menu.setApplicationMenu(
+  IS_MAC
+    ? Menu.buildFromTemplate([{ role: 'appMenu' }, { role: 'editMenu' }, { role: 'windowMenu' }])
+    : null
+)
 
 if (isSmokeTest) {
   app.setPath('userData', path.join(process.cwd(), '.cache', 'smoke-profile'))
@@ -298,7 +308,7 @@ function createSupportWindow() {
     title: 'Apoiar o HunteraFarm',
     backgroundColor: '#07100c',
     autoHideMenuBar: true,
-    icon: path.join(__dirname, '..', 'assets', 'icon.ico'),
+    icon: WINDOW_ICON,
     webPreferences: {
       preload: path.join(__dirname, 'support-preload.cjs'),
       devTools: false,
@@ -411,7 +421,8 @@ function handleShortcut(event, input) {
     return
   }
 
-  if (key === 'f11') {
+  // O F11 do macOS pertence ao sistema; lá a tela cheia usa Ctrl+Cmd+F.
+  if (key === 'f11' || (IS_MAC && input.control && input.meta && key === 'f')) {
     event.preventDefault()
     toggleFullscreen()
   }
@@ -478,7 +489,7 @@ function configureGameWebContents(account, index) {
           modal: false,
           autoHideMenuBar: true,
           title: `Entrar com Google — ${ACCOUNT_LABELS[index]}`,
-          icon: path.join(__dirname, '..', 'assets', 'icon.ico'),
+          icon: WINDOW_ICON,
           webPreferences: {
             partition: SESSION_PARTITIONS[index],
             devTools: false,
@@ -778,7 +789,7 @@ function createMainWindow() {
     title: APP_NAME,
     backgroundColor: '#07100c',
     autoHideMenuBar: true,
-    icon: path.join(__dirname, '..', 'assets', 'icon.ico'),
+    icon: WINDOW_ICON,
     webPreferences: {
       preload: path.join(__dirname, 'preload.cjs'),
       devTools: false,

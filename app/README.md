@@ -22,6 +22,9 @@ Cliente desktop **não oficial** para abrir de uma a quatro contas do [Huntera](
 - `Ctrl+M`: silenciar a conta selecionada.
 - `F11`: entrar ou sair da tela cheia.
 
+No macOS use `Cmd` no lugar de `Ctrl` e `Ctrl+Cmd+F` para a tela cheia, porque o `F11`
+pertence ao sistema.
+
 ## Desenvolvimento
 
 ```text
@@ -38,6 +41,30 @@ Os logins ficam apenas nas partições locais do Electron, dentro dos dados do u
 
 A opção sem instalação é distribuída em ZIP. Ela também mantém os logins no perfil do
 Windows; fechar uma tela não apaga a sessão daquela conta.
+
+## Pacotes para macOS
+
+```text
+pnpm install --frozen-lockfile
+pnpm test
+pnpm smoke
+pnpm smoke:lifecycle
+pnpm dist:mac
+```
+
+`pnpm dist:mac` cria o DMG e o ZIP em `dist`, e `pnpm pack:mac` gera apenas o `.app`.
+Como `electronDist` usa o Electron instalado pelo `pnpm-lock.yaml`, cada pacote sai na
+arquitetura do Mac que compilou: Apple Silicon gera `arm64` e Intel gera `x64`. Para
+publicar as duas, compile em uma máquina de cada arquitetura.
+
+Os pacotes recebem assinatura ad-hoc (`mac.identity: "-"`), necessária para o app abrir
+no Apple Silicon depois que os fuses do Electron alteram o binário. Ela não é um
+certificado da Apple: o Gatekeeper continua avisando que o desenvolvedor não foi
+verificado e, no primeiro uso, o app precisa ser aberto pelo menu de contexto. Quando
+houver um Developer ID Application, troque `mac.identity` e ative a notarização.
+
+O ícone `assets/icon.icns` é gerado de `assets/icon-source.png` por
+`scripts/make_icns.sh`, que usa o `sips` e o `iconutil` do próprio macOS.
 
 ## Política de assinatura de código
 

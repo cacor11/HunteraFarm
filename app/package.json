@@ -24,7 +24,9 @@
     "smoke:lifecycle": "electron . --lifecycle-smoke-test",
     "dist": "electron-builder --win nsis zip --x64 --publish never",
     "dist:signed": "electron-builder --win nsis zip --x64 --config.forceCodeSigning=true --publish never",
-    "pack": "electron-builder --win dir --x64"
+    "dist:mac": "electron-builder --mac dmg zip --publish never",
+    "pack": "electron-builder --win dir --x64",
+    "pack:mac": "electron-builder --mac dir"
   },
   "devDependencies": {
     "electron": "43.4.1",
@@ -69,6 +71,19 @@
             "x64"
           ]
         }
+      ]
+    },
+    "mac": {
+      "icon": "assets/icon.icns",
+      "category": "public.app-category.games",
+      "artifactName": "HunteraFarm-${version}-${arch}.${ext}",
+      "hardenedRuntime": true,
+      "gatekeeperAssess": false,
+      "notarize": false,
+      "identity": "-",
+      "target": [
+        "dmg",
+        "zip"
       ]
     },
     "nsis": {

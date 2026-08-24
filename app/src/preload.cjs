@@ -7,6 +7,7 @@ const IPC_GET_STATE = 'hunterafarm:get-state'
 const IPC_STATE = 'hunterafarm:state'
 
 contextBridge.exposeInMainWorld('hunteraFarm', {
+  platform: process.platform,
   command(request) {
     return ipcRenderer.invoke(IPC_COMMAND, request)
   },
