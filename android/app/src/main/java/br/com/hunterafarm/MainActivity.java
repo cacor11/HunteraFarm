@@ -704,7 +704,10 @@ public final class MainActivity extends ComponentActivity {
         }
 
         @Override
+        @SuppressLint("NewApi")
         public boolean onRenderProcessGone(WebView view, RenderProcessGoneDetail detail) {
+            // This callback and RenderProcessGoneDetail only exist on API 26+;
+            // Android never dispatches it on the app's API 24-25 devices.
             handleRendererGone(view, slot, detail.didCrash());
             return true;
         }
