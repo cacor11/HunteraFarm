@@ -23,6 +23,10 @@
     <string name="maximum_accounts">O limite de quatro contas já foi atingido.</string>
     <string name="external_opened">Link aberto no navegador.</string>
     <string name="external_failed">Não foi possível abrir esse link.</string>
+    <string name="external_navigation_stopped">Navegação externa interrompida na Conta %1$d.</string>
+    <string name="external_navigation_help">A conta não será atualizada automaticamente. Toque em Atualizar somente quando quiser reabrir a tela.</string>
+    <string name="manual_reload_waiting">Conta %1$d aguardando você.</string>
+    <string name="manual_reload_help">Para evitar atualizações repetidas, esta tela não será reaberta sozinha. Toque em Atualizar quando quiser continuar.</string>
     <string name="load_failed">Não foi possível carregar o jogo. Confira sua internet e toque em Atualizar.</string>
     <string name="renderer_released">A tela da Conta %1$d foi liberada para economizar memória.</string>
     <string name="renderer_released_help">O Android encerrou a tela para recuperar memória. Toque em Atualizar quando quiser reabri-la.</string>
