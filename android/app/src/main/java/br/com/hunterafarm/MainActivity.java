@@ -54,6 +54,11 @@ import java.util.Locale;
  */
 public final class MainActivity extends ComponentActivity {
     private static final String WEBVIEW_PACKAGE = "com.google.android.webview";
+    private static final String WEBVIEW_STATE = "hunterafarm_webview_state";
+    private static final String WEBVIEW_STATE_SLOT = "hunterafarm_webview_state_slot";
+    private static final String MANUAL_RELOAD_REQUIRED = "hunterafarm_manual_reload_required";
+    private static final String MANUAL_RELOAD_SLOT = "hunterafarm_manual_reload_slot";
+    private static final int WEBVIEW_STATE_MAX_BYTES = 64 * 1024;
     private static final String PIX_PAYLOAD = "00020101021126580014br.gov.bcb.pix01369d2f23e4-d823-4a79-a3aa-545b4b6d3e9a5204000053039865802BR5922ACACIO SANTOS DA SILVA6010POCO VERDE62070503***6304638F";
 
     private FrameLayout webViewContainer;
@@ -74,6 +79,7 @@ public final class MainActivity extends ComponentActivity {
     private AccountSlotManager slotManager;
     private boolean supportsMultipleProfiles;
     private boolean activityDestroyed;
+    private boolean manualReloadRequired;
     private WebView activeWebView;
     private int renderedSlot = AccountSlotManager.NO_SLOT_AVAILABLE;
 
@@ -103,7 +109,11 @@ public final class MainActivity extends ComponentActivity {
             compatibilityBanner.post(this::showCompatibilityDialog);
         }
 
-        openSelectedAccount();
+        if (shouldRestoreManualReloadState(savedInstanceState)) {
+            showManualReloadState(slotManager.getSelectedSlot());
+        } else {
+            openSelectedAccount(savedInstanceState);
+        }
     }
 
     private void bindViews() {
@@ -152,6 +162,7 @@ public final class MainActivity extends ComponentActivity {
         });
 
         reloadButton.setOnClickListener(view -> {
+            manualReloadRequired = false;
             if (activeWebView != null) {
                 activeWebView.reload();
             } else {
@@ -253,11 +264,28 @@ public final class MainActivity extends ComponentActivity {
     }
 
     private void openSelectedAccount() {
+        openSelectedAccount(null);
+    }
+
+    private void openSelectedAccount(Bundle savedInstanceState) {
         int slot = slotManager.getSelectedSlot();
-        openAccount(slot, accountPreferences.loadLastUrl(slot));
+        Bundle webViewState = null;
+        if (savedInstanceState != null
+                && savedInstanceState.getInt(
+                        WEBVIEW_STATE_SLOT,
+                        AccountSlotManager.NO_SLOT_AVAILABLE
+                ) == slot) {
+            webViewState = savedInstanceState.getBundle(WEBVIEW_STATE);
+        }
+        openAccount(slot, accountPreferences.loadLastUrl(slot), webViewState);
     }
 
     private void openAccount(int slot, String requestedUrl) {
+        openAccount(slot, requestedUrl, null);
+    }
+
+    private void openAccount(int slot, String requestedUrl, Bundle webViewState) {
+        manualReloadRequired = false;
         destroyActiveWebView();
         emptyMessage.setVisibility(View.GONE);
         statusText.setText(getString(R.string.loading_account, slot));
@@ -288,7 +316,17 @@ public final class MainActivity extends ComponentActivity {
             String safeUrl = HunteraNavigationPolicy.isEmbeddedUrlAllowed(requestedUrl)
                     ? requestedUrl
                     : HunteraNavigationPolicy.HOME_URL;
-            webView.loadUrl(safeUrl);
+            boolean restored = false;
+            if (webViewState != null) {
+                try {
+                    restored = webView.restoreState(webViewState) != null;
+                } catch (RuntimeException ignored) {
+                    // A stale system snapshot must never prevent a clean reopen.
+                }
+            }
+            if (!restored) {
+                webView.loadUrl(safeUrl);
+            }
         } catch (RuntimeException exception) {
             if (webView != null) {
                 if (webView.getParent() == webViewContainer) {
@@ -395,6 +433,52 @@ public final class MainActivity extends ComponentActivity {
         } catch (RuntimeException ignored) {
             // Destruction is best-effort if Android already killed the renderer.
         }
+    }
+
+    private void stopUnexpectedExternalNavigation(WebView webView, int slot, String url) {
+        if (webView != activeWebView) {
+            return;
+        }
+
+        webView.stopLoading();
+        manualReloadRequired = true;
+        activeWebView = null;
+        renderedSlot = AccountSlotManager.NO_SLOT_AVAILABLE;
+        if (webView.getParent() == webViewContainer) {
+            webViewContainer.removeView(webView);
+        }
+        destroyWebViewInstance(webView);
+
+        loadingProgress.setVisibility(View.GONE);
+        statusText.setText(getString(R.string.external_navigation_stopped, slot));
+        emptyMessage.setText(R.string.external_navigation_help);
+        emptyMessage.setVisibility(View.VISIBLE);
+        renderActionButtons();
+
+        // The account is intentionally not loaded again here. Reloading the
+        // previous page can recreate the same redirect and cause an endless
+        // refresh loop. The user remains in control through Atualizar.
+        openExternalUrl(url, true);
+    }
+
+    private boolean shouldRestoreManualReloadState(Bundle savedInstanceState) {
+        return savedInstanceState != null
+                && savedInstanceState.getBoolean(MANUAL_RELOAD_REQUIRED, false)
+                && savedInstanceState.getInt(
+                        MANUAL_RELOAD_SLOT,
+                        AccountSlotManager.NO_SLOT_AVAILABLE
+                ) == slotManager.getSelectedSlot();
+    }
+
+    private void showManualReloadState(int slot) {
+        manualReloadRequired = true;
+        activeWebView = null;
+        renderedSlot = AccountSlotManager.NO_SLOT_AVAILABLE;
+        loadingProgress.setVisibility(View.GONE);
+        statusText.setText(getString(R.string.manual_reload_waiting, slot));
+        emptyMessage.setText(R.string.manual_reload_help);
+        emptyMessage.setVisibility(View.VISIBLE);
+        renderActionButtons();
     }
 
     private void renderAccountControls() {
@@ -565,6 +649,7 @@ public final class MainActivity extends ComponentActivity {
     }
 
     private void showEngineError() {
+        manualReloadRequired = true;
         loadingProgress.setVisibility(View.GONE);
         statusText.setText(R.string.engine_error_message);
         emptyMessage.setText(R.string.engine_error_message);
@@ -588,6 +673,7 @@ public final class MainActivity extends ComponentActivity {
             return;
         }
 
+        manualReloadRequired = true;
         activeWebView = null;
         renderedSlot = AccountSlotManager.NO_SLOT_AVAILABLE;
         if (webView.getParent() == webViewContainer) {
@@ -658,16 +744,12 @@ public final class MainActivity extends ComponentActivity {
             // Re-check the committed main-frame URL so an external redirect can
             // never remain rendered inside the authenticated Huntera profile.
             if (!HunteraNavigationPolicy.isEmbeddedUrlAllowed(url)) {
-                view.stopLoading();
-                loadingProgress.setVisibility(View.GONE);
-                openExternalUrl(url, true);
-                view.loadUrl(accountPreferences.loadLastUrl(slot));
+                stopUnexpectedExternalNavigation(view, slot, url);
                 return;
             }
 
             statusText.setText(getString(R.string.loading_account, slot));
             loadingProgress.setVisibility(View.VISIBLE);
-            accountPreferences.saveLastUrl(slot, url);
             renderActionButtons();
         }
 
@@ -770,6 +852,34 @@ public final class MainActivity extends ComponentActivity {
             activeWebView.pauseTimers();
         }
         super.onPause();
+    }
+
+    @Override
+    @SuppressLint("RequiresFeature")
+    protected void onSaveInstanceState(Bundle outState) {
+        saveRenderedLocation();
+        if (manualReloadRequired) {
+            outState.putBoolean(MANUAL_RELOAD_REQUIRED, true);
+            outState.putInt(MANUAL_RELOAD_SLOT, slotManager.getSelectedSlot());
+        } else if (activeWebView != null
+                && renderedSlot != AccountSlotManager.NO_SLOT_AVAILABLE) {
+            Bundle webViewState = new Bundle();
+            try {
+                if (WebViewFeature.isFeatureSupported(WebViewFeature.SAVE_STATE)) {
+                    WebViewCompat.saveState(
+                            activeWebView,
+                            webViewState,
+                            WEBVIEW_STATE_MAX_BYTES,
+                            false
+                    );
+                    outState.putBundle(WEBVIEW_STATE, webViewState);
+                    outState.putInt(WEBVIEW_STATE_SLOT, renderedSlot);
+                }
+            } catch (RuntimeException ignored) {
+                // The last completed Huntera URL remains a safe fallback.
+            }
+        }
+        super.onSaveInstanceState(outState);
     }
 
     @Override
