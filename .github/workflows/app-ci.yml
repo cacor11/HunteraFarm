@@ -1,0 +1,85 @@
+name: Testar e empacotar o app
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "app/**"
+      - ".github/workflows/app-ci.yml"
+  pull_request:
+    paths:
+      - "app/**"
+      - ".github/workflows/app-ci.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+  attestations: write
+  artifact-metadata: write
+
+jobs:
+  windows:
+    name: Testes e pacote Windows
+    runs-on: windows-latest
+    defaults:
+      run:
+        working-directory: app
+
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v7
+
+      - name: Preparar pnpm e Node.js
+        uses: pnpm/setup@v2
+        with:
+          version: 11.19.0
+          runtime: node@24
+          cache: true
+          cache-dependency-path: app/pnpm-lock.yaml
+          package-json-file: app/package.json
+          install: false
+
+      - name: Instalar dependências fixadas
+        run: pnpm install --frozen-lockfile
+
+      - name: Executar testes
+        run: pnpm test
+
+      - name: Testar inicialização segura
+        run: pnpm smoke
+
+      - name: Testar criação e destruição das telas
+        run: pnpm smoke:lifecycle
+
+      - name: Criar pacotes de revisão sem assinatura
+        run: pnpm dist
+
+      - name: Gerar hashes SHA-256
+        shell: pwsh
+        run: |
+          $targets = Get-ChildItem -Path dist -File | Where-Object { $_.Extension -in '.exe', '.zip' }
+          $lines = foreach ($target in $targets) {
+            $hash = (Get-FileHash -Algorithm SHA256 -LiteralPath $target.FullName).Hash.ToLowerInvariant()
+            "$hash *$($target.Name)"
+          }
+          Set-Content -Path dist/SHA256SUMS.txt -Value $lines -Encoding utf8NoBOM
+
+      - name: Atestar a procedência dos pacotes
+        if: github.event_name != 'pull_request'
+        uses: actions/attest@v4
+        with:
+          subject-path: |
+            app/dist/*.exe
+            app/dist/*.zip
+
+      - name: Guardar pacotes para revisão
+        uses: actions/upload-artifact@v7
+        with:
+          name: HunteraFarm-1.2.0-unsigned-review
+          path: |
+            app/dist/*.exe
+            app/dist/*.zip
+            app/dist/SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 14

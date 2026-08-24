@@ -1,0 +1,5 @@
+allowBuilds:
+  electron: true
+  electron-winstaller: true
+
+blockExoticSubdeps: false

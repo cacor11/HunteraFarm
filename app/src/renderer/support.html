@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; object-src 'none'; frame-src 'none'; base-uri 'none'; form-action 'none'"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Apoiar o HunteraFarm</title>
+    <link rel="stylesheet" href="support.css" />
+  </head>
+  <body>
+    <main class="support-shell">
+      <button class="close-button" id="close-button" type="button" aria-label="Fechar">×</button>
+
+      <header class="support-header">
+        <img src="assets/hunterafarm-logo.png" alt="HunteraFarm" />
+        <p>O player continua gratuito. Se ele ajuda na sua rotina, você pode apoiar o projeto via Pix.</p>
+      </header>
+
+      <section class="pix-panel" aria-labelledby="pix-title">
+        <div class="pix-heading">
+          <div><span>PIX</span><strong id="pix-title">Apoie se quiser</strong></div>
+          <small>Sem valor fixo</small>
+        </div>
+
+        <div class="qr-wrap">
+          <img src="assets/pix-hunterafarm.png" alt="QR Code Pix para apoiar o HunteraFarm" />
+        </div>
+
+        <dl class="pix-details">
+          <div><dt>Recebedor</dt><dd>Acacio Santos da Silva</dd></div>
+          <div><dt>Chave Pix</dt><dd>9d2f23e4-d823-4a79-a3aa-545b4b6d3e9a</dd></div>
+        </dl>
+
+        <button class="copy-button" id="copy-button" type="button">
+          <span data-copy-label>Copiar código Pix</span>
+          <span aria-hidden="true" data-copy-icon>⧉</span>
+        </button>
+        <p class="copy-status" id="copy-status" role="status" aria-live="polite"></p>
+      </section>
+
+      <p class="optional-note">Apoio totalmente opcional. Nenhum recurso depende de doação.</p>
+    </main>
+    <script src="support.js"></script>
+  </body>
+</html>

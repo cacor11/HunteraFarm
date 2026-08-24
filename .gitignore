@@ -3,3 +3,6 @@ Thumbs.db
 *.log
 HunteraFarm-Setup-*.exe
 .github-auth/
+app/node_modules/
+app/dist/
+app/.cache/

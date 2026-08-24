@@ -1,0 +1,558 @@
+:root {
+  color-scheme: dark;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+  --bg: #07100c;
+  --panel: #0d1813;
+  --panel-strong: #111f18;
+  --line: rgba(210, 241, 220, 0.11);
+  --line-strong: rgba(198, 243, 138, 0.34);
+  --text: #edf7f0;
+  --muted: #91a89a;
+  --accent: #b9ee72;
+  --accent-strong: #d1ff92;
+  --accent-ink: #102006;
+  --danger: #ff8585;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+  background: var(--bg);
+  color: var(--text);
+}
+
+button {
+  font: inherit;
+}
+
+.appbar {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(190px, 0.65fr) minmax(520px, 1.8fr) auto;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  height: 84px;
+  padding: 12px 16px;
+  overflow: hidden;
+  user-select: none;
+  background:
+    radial-gradient(circle at 16% 0%, rgba(156, 225, 85, 0.1), transparent 31%),
+    linear-gradient(180deg, #101d17 0%, #0a1510 100%);
+  border-bottom: 1px solid rgba(197, 240, 211, 0.13);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.28);
+}
+
+.appbar::after {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  content: "";
+  background: linear-gradient(90deg, transparent, rgba(185, 238, 114, 0.42), transparent);
+  opacity: 0.55;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 8px;
+}
+
+.brand-logo {
+  display: block;
+  width: 148px;
+  height: 58px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.38));
+}
+
+.unofficial {
+  padding: 3px 6px;
+  color: #a8b9ad;
+  font-size: 9px;
+  font-weight: 750;
+  line-height: 1;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.055);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 999px;
+}
+
+.account-switcher {
+  display: flex;
+  min-width: 0;
+  gap: 7px;
+  padding: 4px;
+  background: rgba(2, 8, 5, 0.42);
+  border: 1px solid rgba(205, 238, 214, 0.09);
+  border-radius: 15px;
+  box-shadow: inset 0 1px 8px rgba(0, 0, 0, 0.22);
+}
+
+.account-slots {
+  display: grid;
+  min-width: 0;
+  flex: 1 1 auto;
+  grid-template-columns: repeat(var(--open-account-count, 2), minmax(0, 1fr));
+  gap: 7px;
+}
+
+.account-slot {
+  position: relative;
+  min-width: 0;
+}
+
+.account-tab {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  width: 100%;
+  height: 50px;
+  padding: 7px 38px 7px 12px;
+  color: #a7b9ad;
+  text-align: left;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 11px;
+  grid-template-columns: 11px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 9px;
+  transition:
+    color 140ms ease,
+    background 140ms ease,
+    border-color 140ms ease,
+    transform 140ms ease;
+}
+
+.account-close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 2;
+  display: grid;
+  width: 21px;
+  height: 21px;
+  padding: 0;
+  place-items: center;
+  color: rgba(206, 220, 211, 0.48);
+  cursor: pointer;
+  background: rgba(1, 6, 4, 0.32);
+  border: 0;
+  border-radius: 7px;
+  transition: color 130ms ease, background 130ms ease;
+}
+
+.account-close:hover {
+  color: #ffd1d1;
+  background: rgba(255, 105, 105, 0.16);
+}
+
+.account-close svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.add-account-button {
+  display: flex;
+  width: 86px;
+  height: 50px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding: 0 9px;
+  color: var(--accent-strong);
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  background: rgba(185, 238, 114, 0.065);
+  border: 1px dashed rgba(185, 238, 114, 0.27);
+  border-radius: 11px;
+  transition: color 130ms ease, background 130ms ease, border-color 130ms ease;
+}
+
+.add-account-button:hover {
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-color: var(--accent-strong);
+}
+
+.add-account-button svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.account-tab:hover {
+  color: #dce9e0;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.account-tab:active {
+  transform: translateY(1px);
+}
+
+.account-tab.active {
+  color: var(--text);
+  background:
+    linear-gradient(180deg, rgba(191, 239, 126, 0.115), rgba(191, 239, 126, 0.045)),
+    #132219;
+  border-color: var(--line-strong);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.055),
+    0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.account-tab[data-account="2"].active {
+  background:
+    linear-gradient(180deg, rgba(139, 180, 255, 0.12), rgba(139, 180, 255, 0.045)),
+    #132019;
+  border-color: rgba(139, 180, 255, 0.34);
+}
+
+.account-tab[data-account="3"].active {
+  background:
+    linear-gradient(180deg, rgba(255, 198, 105, 0.13), rgba(255, 198, 105, 0.045)),
+    #211b11;
+  border-color: rgba(255, 198, 105, 0.36);
+}
+
+.account-tab[data-account="4"].active {
+  background:
+    linear-gradient(180deg, rgba(205, 154, 255, 0.13), rgba(205, 154, 255, 0.045)),
+    #1c1722;
+  border-color: rgba(205, 154, 255, 0.36);
+}
+
+.account-tab:focus-visible,
+.account-close:focus-visible,
+.add-account-button:focus-visible,
+.control-button:focus-visible,
+.icon-button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.account-status {
+  width: 9px;
+  height: 9px;
+  background: #718078;
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px rgba(113, 128, 120, 0.1);
+}
+
+.account-status.ready {
+  background: #7ee787;
+  box-shadow:
+    0 0 0 3px rgba(126, 231, 135, 0.1),
+    0 0 9px rgba(126, 231, 135, 0.25);
+}
+
+.account-tab[data-account="2"] .account-status.ready {
+  background: #8cb4ff;
+  box-shadow:
+    0 0 0 3px rgba(140, 180, 255, 0.1),
+    0 0 9px rgba(140, 180, 255, 0.25);
+}
+
+.account-tab[data-account="3"] .account-status.ready {
+  background: #ffc669;
+  box-shadow:
+    0 0 0 3px rgba(255, 198, 105, 0.1),
+    0 0 9px rgba(255, 198, 105, 0.25);
+}
+
+.account-tab[data-account="4"] .account-status.ready {
+  background: #cd9aff;
+  box-shadow:
+    0 0 0 3px rgba(205, 154, 255, 0.1),
+    0 0 9px rgba(205, 154, 255, 0.25);
+}
+
+.account-status.error {
+  background: #ff8585;
+  box-shadow: 0 0 0 3px rgba(255, 133, 133, 0.1);
+}
+
+.account-status.loading {
+  background: transparent;
+  border: 2px solid rgba(185, 238, 114, 0.25);
+  border-top-color: var(--accent);
+  box-shadow: none;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.account-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.account-name {
+  overflow: hidden;
+  font-size: 13px;
+  font-weight: 710;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.account-detail {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 10.5px;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mute-badge {
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  color: #b5c3ba;
+  background: rgba(255, 255, 255, 0.055);
+  border-radius: 7px;
+}
+
+.mute-badge[hidden] {
+  display: none;
+}
+
+.mute-badge svg {
+  width: 14px;
+  height: 14px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.key-hint {
+  position: absolute;
+  right: 8px;
+  bottom: 6px;
+  color: rgba(185, 202, 191, 0.4);
+  font-size: 8px;
+  font-weight: 650;
+}
+
+.controls {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 5px;
+}
+
+.control-button,
+.icon-button {
+  display: inline-flex;
+  height: 39px;
+  align-items: center;
+  justify-content: center;
+  color: #bacac0;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 0.035);
+  border: 1px solid rgba(210, 241, 220, 0.1);
+  border-radius: 10px;
+  transition:
+    color 130ms ease,
+    background 130ms ease,
+    border-color 130ms ease,
+    transform 130ms ease;
+}
+
+.control-button:hover,
+.icon-button:hover {
+  color: var(--text);
+  background: rgba(255, 255, 255, 0.075);
+  border-color: rgba(210, 241, 220, 0.2);
+}
+
+.control-button:active,
+.icon-button:active {
+  transform: translateY(1px);
+}
+
+.control-button.active {
+  color: var(--accent-strong);
+  background: rgba(185, 238, 114, 0.11);
+  border-color: rgba(185, 238, 114, 0.28);
+}
+
+.support-button {
+  color: var(--accent-strong);
+  background: rgba(185, 238, 114, 0.075);
+  border-color: rgba(185, 238, 114, 0.2);
+}
+
+.support-button:hover {
+  color: var(--accent-ink);
+  background: var(--accent);
+  border-color: var(--accent-strong);
+}
+
+.control-button {
+  gap: 7px;
+  padding: 0 11px;
+  font-size: 11px;
+  font-weight: 650;
+}
+
+.icon-button {
+  width: 39px;
+  padding: 0;
+}
+
+.control-button svg,
+.icon-button svg {
+  width: 18px;
+  height: 18px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.control-button.danger {
+  color: #d9b2b2;
+  background: rgba(255, 105, 105, 0.045);
+  border-color: rgba(255, 133, 133, 0.14);
+}
+
+.control-button.danger:hover {
+  color: var(--danger);
+  background: rgba(255, 105, 105, 0.08);
+  border-color: rgba(255, 133, 133, 0.23);
+}
+
+.control-button:disabled,
+.icon-button:disabled,
+.account-tab:disabled,
+.account-close:disabled,
+.add-account-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+  transform: none;
+}
+
+.control-divider {
+  width: 1px;
+  height: 23px;
+  margin: 0 3px;
+  background: rgba(210, 241, 220, 0.11);
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  padding: 0 !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0, 0, 0, 0) !important;
+  white-space: nowrap !important;
+  border: 0 !important;
+}
+
+@media (max-width: 1220px) {
+  .appbar {
+    grid-template-columns: 138px minmax(420px, 1fr) auto;
+    gap: 11px;
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .unofficial,
+  .control-label {
+    display: none;
+  }
+
+  .brand-logo {
+    width: 132px;
+    height: 56px;
+  }
+
+  .account-tab {
+    padding-right: 31px;
+    padding-left: 8px;
+  }
+
+  .add-account-button {
+    width: 42px;
+    padding: 0;
+  }
+
+  .add-account-button span {
+    display: none;
+  }
+
+  .account-detail,
+  .key-hint,
+  .mute-badge {
+    display: none !important;
+  }
+
+  .layout-button {
+    width: 39px;
+    padding: 0;
+  }
+
+  .clear-button {
+    width: 39px;
+    padding: 0;
+  }
+
+  .support-button {
+    width: 39px;
+    padding: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

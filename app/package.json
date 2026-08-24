@@ -1,0 +1,87 @@
+{
+  "name": "hunterafarm",
+  "version": "1.2.0",
+  "description": "Cliente não oficial com uma a quatro sessões isoladas do Huntera.",
+  "main": "src/main.cjs",
+  "author": "HunteraFarm",
+  "license": "MIT",
+  "private": true,
+  "packageManager": "pnpm@11.19.0",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cacor11/HunteraFarm.git",
+    "directory": "app"
+  },
+  "homepage": "https://cacor11.github.io/HunteraFarm/",
+  "bugs": "https://github.com/cacor11/HunteraFarm/issues",
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test",
+    "smoke": "electron . --smoke-test",
+    "smoke:lifecycle": "electron . --lifecycle-smoke-test",
+    "dist": "electron-builder --win nsis zip --x64",
+    "dist:signed": "electron-builder --win nsis zip --x64 --config.forceCodeSigning=true",
+    "pack": "electron-builder --win dir --x64"
+  },
+  "devDependencies": {
+    "electron": "43.4.1",
+    "electron-builder": "26.15.3"
+  },
+  "build": {
+    "appId": "br.com.hunterafarm.app",
+    "productName": "HunteraFarm",
+    "asar": true,
+    "electronDist": "node_modules/electron/dist",
+    "electronFuses": {
+      "runAsNode": false,
+      "enableCookieEncryption": true,
+      "enableNodeOptionsEnvironmentVariable": false,
+      "enableNodeCliInspectArguments": false,
+      "enableEmbeddedAsarIntegrityValidation": true,
+      "onlyLoadAppFromAsar": true
+    },
+    "directories": {
+      "buildResources": "assets",
+      "output": "dist"
+    },
+    "files": [
+      "src/**/*",
+      "assets/icon.ico",
+      "package.json"
+    ],
+    "win": {
+      "icon": "assets/icon.ico",
+      "requestedExecutionLevel": "asInvoker",
+      "artifactName": "HunteraFarm-Sem-Instalar-${version}-${arch}.${ext}",
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "zip",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "nsis": {
+      "artifactName": "HunteraFarm-Setup-${version}-${arch}.${ext}",
+      "oneClick": false,
+      "perMachine": false,
+      "allowElevation": false,
+      "allowToChangeInstallationDirectory": false,
+      "packElevateHelper": false,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "HunteraFarm",
+      "uninstallDisplayName": "HunteraFarm"
+    }
+  }
+}
