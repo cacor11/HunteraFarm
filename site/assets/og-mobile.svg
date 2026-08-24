@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <defs>
+    <radialGradient id="glow" cx="78%" cy="30%" r="64%">
+      <stop offset="0" stop-color="#8de52d" stop-opacity=".25" />
+      <stop offset="1" stop-color="#07100d" stop-opacity="0" />
+    </radialGradient>
+    <linearGradient id="phone" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#15231d" />
+      <stop offset="1" stop-color="#09110e" />
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="24" stdDeviation="28" flood-color="#000" flood-opacity=".45" />
+    </filter>
+  </defs>
+
+  <rect width="1200" height="630" fill="#07100d" />
+  <rect width="1200" height="630" fill="url(#glow)" />
+  <path d="M0 0h1200v630H0z" fill="none" stroke="#b8ff5b" stroke-opacity=".11" stroke-width="2" />
+
+  <image href="hunterafarm-logo.png" x="72" y="46" width="280" height="130" preserveAspectRatio="xMidYMid meet" />
+
+  <g transform="translate(74 177)">
+    <rect width="202" height="34" rx="17" fill="#b8ff5b" />
+    <text x="101" y="23" text-anchor="middle" fill="#07100d" font-family="Segoe UI,Arial,sans-serif" font-size="14" font-weight="900" letter-spacing="1.5">NOVO · ANDROID BETA</text>
+  </g>
+
+  <text x="72" y="284" fill="#f4f7ed" font-family="Segoe UI,Arial,sans-serif" font-size="66" font-weight="800" letter-spacing="-3">AGORA NO</text>
+  <text x="72" y="354" fill="#b8ff5b" font-family="Segoe UI,Arial,sans-serif" font-size="72" font-weight="850" letter-spacing="-3">CELULAR</text>
+  <text x="76" y="414" fill="#aebbb4" font-family="Segoe UI,Arial,sans-serif" font-size="24">Até 4 contas separadas em aparelhos compatíveis.</text>
+  <text x="76" y="451" fill="#7f9087" font-family="Segoe UI,Arial,sans-serif" font-size="20">Uma conta carregada por vez para economizar RAM.</text>
+
+  <g transform="translate(74 506)">
+    <rect width="142" height="44" rx="22" fill="#14231c" stroke="#b8ff5b" stroke-opacity=".34" />
+    <text x="71" y="29" text-anchor="middle" fill="#b8ff5b" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="750">ANDROID APK</text>
+    <rect x="154" width="156" height="44" rx="22" fill="#14231c" stroke="#b8ff5b" stroke-opacity=".2" />
+    <text x="232" y="29" text-anchor="middle" fill="#d7e0da" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="750">WINDOWS EXE</text>
+    <rect x="322" width="145" height="44" rx="22" fill="#14231c" stroke="#b8ff5b" stroke-opacity=".2" />
+    <text x="394" y="29" text-anchor="middle" fill="#d7e0da" font-family="Segoe UI,Arial,sans-serif" font-size="16" font-weight="750">PORTÁTIL ZIP</text>
+  </g>
+
+  <g transform="translate(760 60)" filter="url(#shadow)">
+    <rect width="350" height="520" rx="46" fill="#050a08" stroke="#c9f7dc" stroke-opacity=".2" stroke-width="3" />
+    <rect x="14" y="14" width="322" height="492" rx="35" fill="url(#phone)" />
+    <rect x="126" y="27" width="98" height="9" rx="5" fill="#38463f" />
+    <image href="hunterafarm-icon.png" x="129" y="61" width="92" height="92" />
+    <text x="175" y="179" text-anchor="middle" fill="#f4f7ed" font-family="Segoe UI,Arial,sans-serif" font-size="28" font-weight="800">HunteraFarm</text>
+    <text x="175" y="205" text-anchor="middle" fill="#8fa097" font-family="Segoe UI,Arial,sans-serif" font-size="14">MODO LEVE</text>
+
+    <g transform="translate(36 237)">
+      <rect width="278" height="54" rx="14" fill="#b8ff5b" />
+      <circle cx="31" cy="27" r="17" fill="#07100d" />
+      <text x="31" y="33" text-anchor="middle" fill="#b8ff5b" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="900">1</text>
+      <text x="60" y="33" fill="#07100d" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="800">Conta 1 ativa</text>
+
+      <rect y="66" width="278" height="54" rx="14" fill="#1b2923" />
+      <circle cx="31" cy="93" r="17" fill="#2b3b33" />
+      <text x="31" y="99" text-anchor="middle" fill="#c3cec7" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="900">2</text>
+      <text x="60" y="99" fill="#d5dfd8" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700">Conta 2 salva</text>
+
+      <rect y="132" width="278" height="54" rx="14" fill="#1b2923" />
+      <circle cx="31" cy="159" r="17" fill="#2b3b33" />
+      <text x="31" y="165" text-anchor="middle" fill="#c3cec7" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="900">3</text>
+      <text x="60" y="165" fill="#d5dfd8" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700">Conta 3 salva</text>
+
+      <rect y="198" width="278" height="54" rx="14" fill="#1b2923" />
+      <circle cx="31" cy="225" r="17" fill="#2b3b33" />
+      <text x="31" y="231" text-anchor="middle" fill="#c3cec7" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="900">4</text>
+      <text x="60" y="231" fill="#d5dfd8" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700">Conta 4 salva</text>
+    </g>
+  </g>
+</svg>
