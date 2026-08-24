@@ -6,10 +6,10 @@ Site público: <https://cacor11.github.io/HunteraFarm/>
 
 ## Versões
 
-- **Estável no site:** `v1.1.0`.
-- **Em preparação:** `v1.2.0`, que inicia com uma conta para economizar memória e permite adicionar ou fechar telas individualmente até o limite de quatro.
+- **Versão disponível no site:** `v1.2.0`, em instalador EXE e pacote portátil ZIP.
+- **Versão anterior no histórico:** `v1.1.0`.
 
-A versão 1.2 só substituirá o download estável depois dos testes finais e da assinatura Authenticode. Os pacotes temporários gerados pelo GitHub Actions são artefatos de revisão e não são lançamentos públicos.
+A versão 1.2 inicia com uma conta para economizar memória e permite adicionar ou fechar telas individualmente até o limite de quatro. Ela passou pelos testes automatizados e os arquivos públicos possuem hashes SHA-256. Uma compilação de revisão do mesmo commit recebeu atestação de procedência, mas a Release foi publicada antes da assinatura Authenticode por decisão explícita do mantenedor. Por isso, o Windows pode exibir um aviso do SmartScreen.
 
 ## Código do aplicativo
 
