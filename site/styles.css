@@ -171,6 +171,8 @@ h1 em { display: block; margin-top: 9px; color: var(--lime); font-style: normal;
 .download-action small { color: #3f5525; font-size: 11px; line-height: 1.5; text-align: center; }
 .button-inverse { min-height: 60px; background: var(--ink); color: var(--cream); box-shadow: 0 14px 30px rgba(7,16,13,.2); }
 .button-inverse:hover { background: #14241c; }
+.button-previous { min-height: 54px; border: 1px solid rgba(7,16,13,.35); color: var(--ink); }
+.button-previous:hover { border-color: var(--ink); background: rgba(7,16,13,.08); }
 
 .support-section { display: grid; grid-template-columns: .92fr 1.08fr; align-items: center; gap: clamp(55px, 9vw, 130px); padding: 40px 0 140px; }
 .support-copy h2 { margin-top: 17px; }

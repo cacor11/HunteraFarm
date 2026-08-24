@@ -1,13 +1,18 @@
 const PIX_PAYLOAD = '00020101021126580014br.gov.bcb.pix01369d2f23e4-d823-4a79-a3aa-545b4b6d3e9a5204000053039865802BR5922ACACIO SANTOS DA SILVA6010POCO VERDE62070503***6304638F';
 const GITHUB_OWNER = 'cacor11';
 const REPOSITORY_NAME = 'HunteraFarm';
-const RELEASE_TAG = 'v1.1.0';
-const INSTALLER_NAME = 'HunteraFarm-Setup-1.1.0-x64.exe';
+const RELEASE_TAG = 'v1.2.0';
+const INSTALLER_NAME = 'HunteraFarm-Setup-1.2.0-x64.exe';
+const PORTABLE_NAME = 'HunteraFarm-Sem-Instalar-1.2.0-x64.zip';
 
 function configureDownloads() {
   const releaseUrl = `https://github.com/${GITHUB_OWNER}/${REPOSITORY_NAME}/releases/download/${RELEASE_TAG}/${INSTALLER_NAME}`;
+  const portableUrl = `https://github.com/${GITHUB_OWNER}/${REPOSITORY_NAME}/releases/download/${RELEASE_TAG}/${PORTABLE_NAME}`;
   document.querySelectorAll('.download-link').forEach((link) => {
     link.href = releaseUrl;
+  });
+  document.querySelectorAll('.portable-download-link').forEach((link) => {
+    link.href = portableUrl;
   });
 }
 
