@@ -10,6 +10,9 @@ const fullscreenButton = document.querySelector('#fullscreen-button')
 const supportButton = document.querySelector('#support-button')
 const announcer = document.querySelector('#announcer')
 const api = window.hunteraFarm
+const isMac = api?.platform === 'darwin'
+const MODIFIER_KEY = isMac ? 'Cmd' : 'Ctrl'
+const FULLSCREEN_KEY = isMac ? 'Ctrl+Cmd+F' : 'F11'
 
 const previewState = {
   selectedAccount: 1,
@@ -92,7 +95,7 @@ function createAccountSlot(accountId) {
         <path d="m16 10 4 4m0-4-4 4"></path>
       </svg>
     </span>
-    <span class="key-hint" aria-hidden="true">Ctrl+${accountId}</span>
+    <span class="key-hint" aria-hidden="true">${MODIFIER_KEY}+${accountId}</span>
   `
 
   const close = document.createElement('button')
@@ -132,6 +135,8 @@ function createAccountSlot(accountId) {
 for (let accountId = 1; accountId <= 4; accountId += 1) {
   createAccountSlot(accountId)
 }
+
+reloadButton.title = `Recarregar conta selecionada (${MODIFIER_KEY}+R)`
 
 function render(state) {
   if (!state || !Array.isArray(state.accounts) || state.accounts.length !== 4) return
@@ -177,14 +182,14 @@ function render(state) {
   layoutButton.classList.toggle('active', grid)
   layoutButton.setAttribute('aria-pressed', String(grid))
   layoutButton.title = grid
-    ? 'Voltar para uma tela por vez (Ctrl+Shift+L)'
-    : `Mostrar as ${state.openAccountCount} telas abertas juntas (Ctrl+Shift+L)`
+    ? `Voltar para uma tela por vez (${MODIFIER_KEY}+Shift+L)`
+    : `Mostrar as ${state.openAccountCount} telas abertas juntas (${MODIFIER_KEY}+Shift+L)`
 
   muteButton.querySelector('.sound-on').hidden = selected.muted
   muteButton.querySelector('.sound-off').hidden = !selected.muted
   muteButton.title = selected.muted
-    ? `Ativar som da ${selected.label} (Ctrl+M)`
-    : `Silenciar ${selected.label} (Ctrl+M)`
+    ? `Ativar som da ${selected.label} (${MODIFIER_KEY}+M)`
+    : `Silenciar ${selected.label} (${MODIFIER_KEY}+M)`
   muteButton.setAttribute(
     'aria-label',
     selected.muted ? `Ativar som da ${selected.label}` : `Silenciar ${selected.label}`
@@ -198,7 +203,9 @@ function render(state) {
 
   fullscreenButton.querySelector('.expand-icon').hidden = state.fullscreen
   fullscreenButton.querySelector('.contract-icon').hidden = !state.fullscreen
-  fullscreenButton.title = state.fullscreen ? 'Sair da tela cheia (F11)' : 'Tela cheia (F11)'
+  fullscreenButton.title = state.fullscreen
+    ? `Sair da tela cheia (${FULLSCREEN_KEY})`
+    : `Tela cheia (${FULLSCREEN_KEY})`
 }
 
 async function runCommand(request, announcement) {

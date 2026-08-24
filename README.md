@@ -24,6 +24,10 @@ pnpm smoke:lifecycle
 pnpm dist
 ```
 
+No macOS, os mesmos testes valem e o empacotamento usa `pnpm dist:mac`, que gera DMG e ZIP
+na arquitetura do Mac que compilou. Esses pacotes têm apenas assinatura ad-hoc, então o
+Gatekeeper avisa que o desenvolvedor não foi verificado. Os detalhes estão em [`app/README.md`](app/README.md).
+
 O fluxo de integração contínua repete esses testes, cria os pacotes de revisão e publica os hashes SHA-256. A procedência gerada pelo GitHub não substitui a assinatura Authenticode do Windows.
 
 ## Site
