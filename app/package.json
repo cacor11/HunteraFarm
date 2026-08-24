@@ -22,8 +22,8 @@
     "test": "node --test",
     "smoke": "electron . --smoke-test",
     "smoke:lifecycle": "electron . --lifecycle-smoke-test",
-    "dist": "electron-builder --win nsis zip --x64",
-    "dist:signed": "electron-builder --win nsis zip --x64 --config.forceCodeSigning=true",
+    "dist": "electron-builder --win nsis zip --x64 --publish never",
+    "dist:signed": "electron-builder --win nsis zip --x64 --config.forceCodeSigning=true --publish never",
     "pack": "electron-builder --win dir --x64"
   },
   "devDependencies": {
