@@ -78,6 +78,10 @@ h1 em { display: block; margin-top: 9px; color: var(--lime); font-style: normal;
 .floating-card div { display: flex; flex-direction: column; gap: 3px; }
 .floating-card b { font-size: 11px; }
 .floating-card small { color: #738179; font-size: 9px; }
+.mobile-badge { position: absolute; left: -14px; top: 18px; display: grid; gap: 2px; min-width: 150px; padding: 13px 15px; border: 1px solid rgba(184,255,91,.35); border-radius: 13px; background: rgba(9,18,15,.97); box-shadow: 0 18px 45px rgba(0,0,0,.36); }
+.mobile-badge span { color: var(--lime); font-size: 8px; font-weight: 900; letter-spacing: 1.3px; }
+.mobile-badge strong { color: var(--cream); font-size: 13px; }
+.mobile-badge small { color: #7f9087; font-size: 9px; }
 
 .hero-strip { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); background: rgba(255,255,255,.018); display: grid; grid-template-columns: repeat(3, 1fr); padding: 0 max(24px, calc((100vw - 1180px)/2)); }
 .hero-strip p { min-height: 88px; margin: 0; display: flex; align-items: center; gap: 14px; padding: 0 28px; border-right: 1px solid var(--line); color: #b5c0ba; font-size: 13px; font-weight: 650; }
@@ -102,6 +106,7 @@ h1 em { display: block; margin-top: 9px; color: var(--lime); font-style: normal;
   .hero-actions { flex-direction: column; align-items: stretch; }
   .button { width: 100%; justify-content: space-between; }
   .product-stage { min-height: 360px; }
+  .glow-two { left: 0; width: 100%; }
   .game-preview { min-height: 270px; grid-template-columns: 1fr 105px; }
   .session-tabs { gap: 2px; overflow: hidden; padding-inline: 5px; }
   .session-tab { gap: 3px; padding: 6px 4px; font-size: 7.5px; }
@@ -115,6 +120,7 @@ h1 em { display: block; margin-top: 9px; color: var(--lime); font-style: normal;
   .account b { font-size: 8px; }
   .session-note { display: none; }
   .floating-card { right: 5px; bottom: -18px; }
+  .mobile-badge { left: 5px; top: -17px; min-width: 138px; padding: 11px 13px; }
   .hero-strip { grid-template-columns: 1fr; }
   .hero-strip p, .hero-strip p:first-child { min-height: 65px; border-left: 0; border-right: 0; border-bottom: 1px solid var(--line); padding-inline: 18px; }
 }
@@ -174,6 +180,28 @@ h1 em { display: block; margin-top: 9px; color: var(--lime); font-style: normal;
 .button-previous { min-height: 54px; border: 1px solid rgba(7,16,13,.35); color: var(--ink); }
 .button-previous:hover { border-color: var(--ink); background: rgba(7,16,13,.08); }
 
+.download-heading { max-width: 790px; margin-bottom: 42px; }
+.download-heading h2 { margin: 12px 0 13px; font-size: clamp(42px, 5vw, 67px); line-height: 1; letter-spacing: -3px; }
+.download-heading > p:last-child { margin: 0; color: #91a198; font-size: 16px; line-height: 1.65; }
+.download-grid { display: grid; grid-template-columns: 1.08fr .92fr; gap: 16px; }
+.download-card { min-height: 420px; display: flex; flex-direction: column; padding: 39px; border-radius: 24px; }
+.download-card h3 { margin: 22px 0 12px; font-size: clamp(31px, 3.4vw, 46px); line-height: 1.05; letter-spacing: -2px; }
+.download-card > p { max-width: 560px; margin: 0; font-size: 15px; line-height: 1.65; }
+.download-card > .button, .windows-actions { margin-top: auto; }
+.download-card > small { display: block; margin-top: 14px; font-size: 10.5px; line-height: 1.5; }
+.platform-label { font-size: 10px; font-weight: 900; letter-spacing: 1.4px; }
+.platform-label span { display: inline-flex; align-items: center; min-height: 23px; margin-right: 8px; padding: 0 8px; border-radius: 999px; background: var(--ink); color: var(--lime); font-size: 8px; letter-spacing: 1px; }
+.android-download-card { background: var(--lime); color: var(--ink); box-shadow: 0 34px 90px rgba(92,151,22,.13); }
+.android-download-card > p, .android-download-card > small { color: #344822; }
+.android-download-card .download-points { margin: 24px 0 30px; }
+.android-download-card .button:focus-visible { outline-color: var(--ink); }
+.windows-download-card { border: 1px solid var(--line); background: linear-gradient(145deg, rgba(255,255,255,.05), rgba(255,255,255,.018)); }
+.windows-download-card .platform-label { color: var(--lime); }
+.windows-download-card > p, .windows-download-card > small { color: #86978e; }
+.windows-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.windows-actions .button { width: 100%; gap: 12px; padding-inline: 17px; }
+.windows-download-card .download-points span { border-color: var(--line); }
+
 .support-section { display: grid; grid-template-columns: .92fr 1.08fr; align-items: center; gap: clamp(55px, 9vw, 130px); padding: 40px 0 140px; }
 .support-copy h2 { margin-top: 17px; }
 .support-copy > p:not(.section-kicker) { max-width: 535px; margin: 26px 0 0; color: #91a198; font-size: 16px; line-height: 1.7; }
@@ -214,6 +242,7 @@ h1 em { display: block; margin-top: 9px; color: var(--lime); font-style: normal;
   .feature-grid { grid-template-columns: 1fr 1fr; }
   .feature-card-wide { grid-column: span 1; }
   .download-panel { grid-template-columns: 1fr; }
+  .download-grid { grid-template-columns: 1fr; }
   .download-action { max-width: 420px; }
   .support-section { gap: 55px; }
   .site-footer { grid-template-columns: 1fr 1fr; }
@@ -236,6 +265,12 @@ h1 em { display: block; margin-top: 9px; color: var(--lime); font-style: normal;
   .download-section { padding: 88px 0; }
   .download-panel { min-height: 0; gap: 36px; padding: 40px 25px; }
   .download-copy h2 { font-size: 43px; letter-spacing: -2.5px; }
+  .download-heading h2 { font-size: 42px; letter-spacing: -2.4px; }
+  .download-card { min-height: 0; padding: 30px 24px; }
+  .download-card h3 { font-size: 35px; }
+  .download-card > small { font-size: 12px; }
+  .download-card > .button, .windows-actions { margin-top: 30px; }
+  .windows-actions { grid-template-columns: 1fr; }
   .support-section { grid-template-columns: 1fr; gap: 52px; padding-bottom: 90px; }
   .pix-card { justify-self: stretch; padding: 17px; }
   .notice-section { margin-bottom: 75px; padding: 22px; }

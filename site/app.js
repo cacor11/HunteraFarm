@@ -4,15 +4,21 @@ const REPOSITORY_NAME = 'HunteraFarm';
 const RELEASE_TAG = 'v1.2.0';
 const INSTALLER_NAME = 'HunteraFarm-Setup-1.2.0-x64.exe';
 const PORTABLE_NAME = 'HunteraFarm-Sem-Instalar-1.2.0-x64.zip';
+const ANDROID_RELEASE_TAG = 'v0.1.0-android-beta';
+const ANDROID_APK_NAME = 'HunteraFarm-Android-0.1.0-beta.apk';
 
 function configureDownloads() {
   const releaseUrl = `https://github.com/${GITHUB_OWNER}/${REPOSITORY_NAME}/releases/download/${RELEASE_TAG}/${INSTALLER_NAME}`;
   const portableUrl = `https://github.com/${GITHUB_OWNER}/${REPOSITORY_NAME}/releases/download/${RELEASE_TAG}/${PORTABLE_NAME}`;
+  const androidUrl = `https://github.com/${GITHUB_OWNER}/${REPOSITORY_NAME}/releases/download/${ANDROID_RELEASE_TAG}/${ANDROID_APK_NAME}`;
   document.querySelectorAll('.download-link').forEach((link) => {
     link.href = releaseUrl;
   });
   document.querySelectorAll('.portable-download-link').forEach((link) => {
     link.href = portableUrl;
+  });
+  document.querySelectorAll('.android-download-link').forEach((link) => {
+    link.href = androidUrl;
   });
 }
 
