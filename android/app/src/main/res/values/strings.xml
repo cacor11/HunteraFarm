@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">HunteraFarm</string>
-    <string name="tagline">Player leve para Huntera</string>
+    <string name="tagline">Até 4 contas carregadas</string>
     <string name="back">Voltar</string>
     <string name="reload">Atualizar</string>
     <string name="add_account">+ Conta</string>
@@ -16,7 +16,7 @@
     <string name="update_now">Atualizar agora</string>
     <string name="continue_one_account">Continuar com 1 conta</string>
     <string name="close_title">Fechar Conta %1$d?</string>
-    <string name="close_message">A tela será removida e a memória liberada. O login dessa conta continuará salvo para quando você adicionar a tela novamente.</string>
+    <string name="close_message">Apenas esta tela será removida e sua memória será liberada. O login continuará salvo para quando você adicionar a conta novamente.</string>
     <string name="close_screen">Fechar tela</string>
     <string name="cancel">Cancelar</string>
     <string name="minimum_account">Pelo menos uma conta precisa permanecer aberta.</string>
