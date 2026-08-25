@@ -14,7 +14,7 @@ const {
   WebContentsView
 } = require('electron')
 
-const { ACCOUNT_COUNT, calculateLayout } = require('./layout.cjs')
+const { ACCOUNT_COUNT, calculateLayout, zoomForLayout } = require('./layout.cjs')
 const {
   DEFAULT_ACTIVE_ACCOUNT_IDS,
   nextAvailableAccountId,
@@ -30,6 +30,13 @@ const {
   isGoogleAccountsUrl,
   isHunteraUrl
 } = require('./security.cjs')
+const {
+  TELEMETRY_ENDPOINT,
+  TelemetryClient,
+  createHeartbeatPayload,
+  loadTelemetrySettings,
+  saveTelemetrySettings
+} = require('./telemetry.cjs')
 
 const APP_NAME = 'HunteraFarm'
 const GAME_URL = `${HUNTERA_ORIGIN}/game`
@@ -58,6 +65,8 @@ let selectedAccount = 1
 let layoutMode = 'single'
 let toolbarReady = false
 let appIsQuitting = false
+let telemetrySettings = null
+let telemetryClient = null
 const configuredSessions = new WeakSet()
 
 app.setName(APP_NAME)
@@ -89,6 +98,7 @@ app.on('certificate-error', (event, _webContents, _url, _error, _certificate, ca
 
 app.on('before-quit', () => {
   appIsQuitting = true
+  if (telemetryClient) telemetryClient.stop()
 })
 
 function accountIndexFromNumber(accountNumber) {
@@ -153,6 +163,7 @@ function publicState() {
     layoutMode,
     maxAccounts: ACCOUNT_COUNT,
     openAccountCount: active.length,
+    anonymousStatsEnabled: telemetrySettings ? telemetrySettings.enabled : true,
     fullscreen: Boolean(mainWindow && !mainWindow.isDestroyed() && mainWindow.isFullScreen()),
     accounts: accountViews.map((account, index) => {
       if (!account) {
@@ -182,6 +193,39 @@ function publicState() {
   }
 }
 
+function initializeTelemetry() {
+  telemetrySettings = loadTelemetrySettings(app.getPath('userData'))
+  telemetryClient = new TelemetryClient({
+    endpoint: TELEMETRY_ENDPOINT,
+    payload: createHeartbeatPayload({
+      installationId: telemetrySettings.installationId,
+      platform: 'windows',
+      version: app.getVersion()
+    })
+  })
+  telemetryClient.setEnabled(telemetrySettings.enabled)
+}
+
+function setAnonymousStatsEnabled(enabled) {
+  if (typeof enabled !== 'boolean' || !telemetrySettings || !telemetryClient) {
+    return { ok: false, reason: 'invalid-value' }
+  }
+
+  telemetrySettings.enabled = enabled
+  // Parar vem antes da gravação em disco para que a desativação seja imediata.
+  telemetryClient.setEnabled(enabled)
+
+  let persisted = true
+  try {
+    saveTelemetrySettings(app.getPath('userData'), telemetrySettings)
+  } catch {
+    persisted = false
+  }
+
+  sendState()
+  return { ok: true, enabled, persisted }
+}
+
 function sendState() {
   if (
     !toolbarReady ||
@@ -201,6 +245,12 @@ function setAccountStatus(account, status, loading = account.loading) {
   sendState()
 }
 
+function applyGameZoom(account, zoomFactor = zoomForLayout(layoutMode, activeAccountIds().length)) {
+  if (!account || account.webContents.isDestroyed()) return
+  if (Math.abs(account.webContents.getZoomFactor() - zoomFactor) < 0.001) return
+  account.webContents.setZoomFactor(zoomFactor)
+}
+
 function applyLayout() {
   if (!mainWindow || mainWindow.isDestroyed()) return
 
@@ -212,12 +262,14 @@ function applyLayout() {
 
   const { width, height } = mainWindow.getContentBounds()
   const layout = calculateLayout(width, height, layoutMode, selectedAccount, active)
+  const zoomFactor = zoomForLayout(layoutMode, active.length)
 
   accountViews.forEach((account, index) => {
     if (!account) return
     const next = layout.accounts[index]
     account.view.setBounds(next.bounds)
     account.view.setVisible(next.visible)
+    applyGameZoom(account, zoomFactor)
   })
 
   sendState()
@@ -510,6 +562,7 @@ function configureGameWebContents(account, index) {
 
   webContents.on('did-finish-load', () => {
     if (account.loadFailed) return
+    applyGameZoom(account)
     setAccountStatus(account, 'Pronta', false)
   })
 
@@ -728,6 +781,8 @@ function registerIpcHandlers() {
       case 'open-support':
         createSupportWindow()
         return { ok: true }
+      case 'set-anonymous-stats':
+        return setAnonymousStatsEnabled(request.enabled)
       case 'clear-session':
         return clearSelectedSession()
       default:
@@ -970,6 +1025,7 @@ app.whenReady().then(async () => {
   }
 
   registerIpcHandlers()
+  initializeTelemetry()
   createMainWindow()
 })
 

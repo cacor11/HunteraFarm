@@ -9,6 +9,14 @@ const {
 const ACCOUNT_COUNT = MAX_ACCOUNT_COUNT
 const TOOLBAR_HEIGHT = 84
 const GRID_GAP = 4
+const TWO_ACCOUNT_ZOOM = 0.8
+const MULTI_ACCOUNT_ZOOM = 0.7
+
+function zoomForLayout(mode, activeAccountCount) {
+  const count = Math.max(0, Math.floor(Number(activeAccountCount) || 0))
+  if (mode !== 'grid' || count <= 1) return 1
+  return count === 2 ? TWO_ACCOUNT_ZOOM : MULTI_ACCOUNT_ZOOM
+}
 
 function emptyAccountLayout(contentHeight) {
   return {
@@ -96,5 +104,6 @@ module.exports = {
   ACCOUNT_COUNT,
   GRID_GAP,
   TOOLBAR_HEIGHT,
-  calculateLayout
+  calculateLayout,
+  zoomForLayout
 }
