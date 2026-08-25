@@ -76,7 +76,7 @@ jobs:
       - name: Guardar pacotes para revisão
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7
         with:
-          name: HunteraFarm-1.2.0-unsigned-review
+          name: HunteraFarm-1.2.1-unsigned-review
           path: |
             app/dist/*.exe
             app/dist/*.zip
