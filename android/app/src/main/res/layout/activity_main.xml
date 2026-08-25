@@ -128,6 +128,15 @@
             android:layout_weight="1"
             android:contentDescription="@string/close_description"
             android:text="@string/close_account" />
+
+        <Button
+            android:id="@+id/usageStatsButton"
+            style="@style/HunteraFarm.ControlButton"
+            android:layout_width="0dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:contentDescription="@string/usage_description"
+            android:text="@string/usage_on_short" />
     </LinearLayout>
 
     <TextView
