@@ -1,19 +1,23 @@
 # HunteraFarm
 
-Player não oficial para Windows que reúne de uma a quatro contas do Huntera em uma única janela, com sessões separadas.
+Player não oficial para Android e Windows que reúne de uma a quatro contas do Huntera em uma única janela, com sessões separadas.
 
 Site público: <https://cacor11.github.io/HunteraFarm/>
 
 ## Versões
 
-- **Versão disponível no site:** `v1.2.0`, em instalador EXE e pacote portátil ZIP.
-- **Versão anterior no histórico:** `v1.1.0`.
+- **Windows:** `v1.2.1`, em instalador EXE e pacote portátil ZIP.
+- **Android:** `v0.1.3-android-beta`, em APK para Android 7 ou superior.
 
-A versão 1.2 inicia com uma conta para economizar memória e permite adicionar ou fechar telas individualmente até o limite de quatro. Ela passou pelos testes automatizados e os arquivos públicos possuem hashes SHA-256. Uma compilação de revisão do mesmo commit recebeu atestação de procedência, mas a Release foi publicada antes da assinatura Authenticode por decisão explícita do mantenedor. Por isso, o Windows pode exibir um aviso do SmartScreen.
+No Windows, a versão 1.2.1 inicia com uma conta para economizar memória e permite adicionar ou fechar telas individualmente até o limite de quatro. No Android, a versão 0.1.3 beta mantém até quatro telas carregadas em aparelhos compatíveis e permite fechá-las separadamente para liberar memória.
 
-## Código do aplicativo
+As duas versões incluem uma contagem anônima opcional. Quando ativada, ela envia apenas um identificador aleatório da instalação, a plataforma e a versão para exibir no site quantas instalações foram vistas e quantas estiveram ativas nos últimos dois minutos. A contagem começa nessas versões e não inclui o uso anterior. Consulte a [política de privacidade da medição](stats-worker/PRIVACY.md).
 
-O código-fonte do player fica em [`app`](app). Para testar e compilar no Windows:
+Os arquivos públicos passam pelos testes automatizados e são acompanhados por hashes SHA-256. A versão Windows é publicada sem assinatura Authenticode por decisão explícita do mantenedor e, por isso, o Windows pode exibir um aviso do SmartScreen.
+
+## Código dos aplicativos
+
+O código-fonte do player para Windows fica em [`app`](app). Para testar e compilar:
 
 ```text
 cd app
@@ -25,6 +29,8 @@ pnpm dist
 ```
 
 O fluxo de integração contínua repete esses testes, cria os pacotes de revisão e publica os hashes SHA-256. A procedência gerada pelo GitHub não substitui a assinatura Authenticode do Windows.
+
+O aplicativo móvel fica em [`android`](android), e o serviço anônimo dos contadores fica em [`stats-worker`](stats-worker).
 
 ## Site
 

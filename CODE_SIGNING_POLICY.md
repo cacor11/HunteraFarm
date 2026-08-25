@@ -28,6 +28,6 @@ O SHA-256 também pode ser comparado com o arquivo `SHA256SUMS.txt` publicado ju
 
 ## Estado atual
 
-A versão 1.2.0 foi autorizada como exceção pública sem assinatura Authenticode depois de concluir os testes e gerar hashes. Uma compilação de revisão do mesmo commit recebeu atestação de procedência do GitHub; os arquivos da Release possuem seus próprios hashes publicados. O site e a Release informam que o Windows pode exibir o SmartScreen. O objetivo continua sendo assinar uma compilação futura assim que houver certificado confiável ou aprovação na SignPath Foundation.
+As versões 1.2.0 e 1.2.1 foram autorizadas como exceções públicas sem assinatura Authenticode, condicionadas à aprovação dos testes e à publicação de hashes. Quando disponível, uma compilação de revisão do mesmo commit também recebe atestação de procedência do GitHub; os arquivos da Release possuem seus próprios hashes publicados. O site e a Release informam que o Windows pode exibir o SmartScreen. O objetivo continua sendo assinar uma compilação futura assim que houver certificado confiável ou aprovação na SignPath Foundation.
 
 Detalhes para mantenedores estão em [`app/SIGNING.md`](app/SIGNING.md).
