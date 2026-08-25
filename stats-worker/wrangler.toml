@@ -1,0 +1,14 @@
+name = "hunterafarm-stats"
+main = "src/worker.js"
+compatibility_date = "2026-08-25"
+workers_dev = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "hunterafarm-stats"
+database_id = "c887daa3-79b8-465f-b37f-e1aa08a0f9e5"
+migrations_dir = "migrations"
+
+[vars]
+# Use "*" while testing, or the public site origin in production.
+CORS_ALLOW_ORIGIN = "https://cacor11.github.io"
