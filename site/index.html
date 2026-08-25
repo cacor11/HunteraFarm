@@ -4,25 +4,25 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#07100d" />
-    <meta name="description" content="Player para jogar Huntera com até quatro contas mantidas carregadas em aparelhos Android compatíveis — beta 0.1.2 — e no Windows 1.2.0." />
+    <meta name="description" content="Player para jogar Huntera com até quatro contas no Android e Windows, com estatísticas anônimas de instalações online e totais." />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="pt_BR" />
     <meta property="og:site_name" content="HunteraFarm" />
-    <meta property="og:title" content="HunteraFarm — Android 0.1.2 beta e Windows 1.2.0" />
-    <meta property="og:description" content="Android 0.1.2 beta mantém até quatro contas abertas para alternar sem recarregar cada página. Windows 1.2.0 também disponível." />
-    <meta property="og:image" content="https://cacor11.github.io/HunteraFarm/assets/og-mobile.png?v=0.1.2" />
+    <meta property="og:title" content="HunteraFarm — Android 0.1.3 beta e Windows 1.2.1" />
+    <meta property="og:description" content="Até quatro contas e um contador anônimo da comunidade: usando agora e total desde a ativação." />
+    <meta property="og:image" content="https://cacor11.github.io/HunteraFarm/assets/og-mobile.png?v=0.1.3" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="HunteraFarm Mobile 0.1.2 beta — até quatro contas abertas no Android, com Windows também disponível" />
+    <meta property="og:image:alt" content="HunteraFarm — até quatro contas no Android e Windows" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="HunteraFarm — Android 0.1.2 beta e Windows 1.2.0" />
-    <meta name="twitter:description" content="Android 0.1.2 beta mantém até quatro contas abertas para alternar sem recarregar cada página. Windows 1.2.0 também disponível." />
-    <meta name="twitter:image" content="https://cacor11.github.io/HunteraFarm/assets/og-mobile.png?v=0.1.2" />
-    <meta name="twitter:image:alt" content="HunteraFarm Mobile 0.1.2 beta — até quatro contas abertas no Android, com Windows também disponível" />
-    <title>HunteraFarm — Android 0.1.2 beta e Windows 1.2.0</title>
+    <meta name="twitter:title" content="HunteraFarm — Android 0.1.3 beta e Windows 1.2.1" />
+    <meta name="twitter:description" content="Até quatro contas e um contador anônimo da comunidade: usando agora e total desde a ativação." />
+    <meta name="twitter:image" content="https://cacor11.github.io/HunteraFarm/assets/og-mobile.png?v=0.1.3" />
+    <meta name="twitter:image:alt" content="HunteraFarm — até quatro contas no Android e Windows" />
+    <title>HunteraFarm — Android 0.1.3 beta e Windows 1.2.1</title>
     <link rel="icon" type="image/png" href="assets/hunterafarm-icon.png?v=2" />
-    <link rel="stylesheet" href="styles.css?v=0.1.2" />
-    <script src="app.js?v=0.1.2" defer></script>
+    <link rel="stylesheet" href="styles.css?v=stats-1" />
+    <script src="app.js?v=stats-1" defer></script>
   </head>
   <body>
     <main>
@@ -49,7 +49,7 @@
           </p>
 
           <div class="hero-actions">
-            <a class="button button-primary android-download-link" href="#baixar" aria-label="Baixar HunteraFarm 0.1.2 beta para Android">
+            <a class="button button-primary android-download-link" href="#baixar" aria-label="Baixar HunteraFarm 0.1.3 beta para Android">
               <span>Baixar para Android</span><span aria-hidden="true">↓</span>
             </a>
             <a class="button button-secondary" href="#baixar">
@@ -58,7 +58,7 @@
           </div>
 
           <div class="download-meta" aria-label="Informações do download">
-            <span>Grátis</span><i></i><span>Android 0.1.2 beta</span><i></i><span>Windows 1.2.0 · EXE e ZIP</span>
+            <span>Grátis</span><i></i><span>Android 0.1.3 beta</span><i></i><span>Windows 1.2.1 · EXE e ZIP</span>
           </div>
         </div>
 
@@ -107,6 +107,30 @@
         <p><span>01</span> Android e Windows</p>
         <p><span>02</span> Até quatro sessões carregadas e independentes</p>
         <p><span>03</span> Você joga — sem automações</p>
+      </section>
+
+      <section class="usage-stats section-shell" aria-labelledby="usage-stats-title">
+        <div class="usage-stats-copy">
+          <p class="section-kicker">COMUNIDADE HUNTERAFARM</p>
+          <h2 id="usage-stats-title">HunteraFarm em números.</h2>
+          <p id="stats-status" role="status" aria-live="polite">Carregando estatísticas anônimas…</p>
+        </div>
+        <div class="usage-stats-grid" aria-describedby="stats-explanation">
+          <article class="usage-stat-card">
+            <span class="status-dot" aria-hidden="true"></span>
+            <strong id="stats-online">—</strong>
+            <span>usando agora</span>
+          </article>
+          <article class="usage-stat-card">
+            <span class="usage-stat-icon" aria-hidden="true">+</span>
+            <strong id="stats-total">—</strong>
+            <span>já usaram o app</span>
+          </article>
+        </div>
+        <p class="usage-stats-note" id="stats-explanation">
+          Valores aproximados por instalação ou dispositivo anônimo com a medição ligada. “Agora” considera os últimos 2 minutos.
+          O total começa na ativação desta medição e não inclui versões antigas nem representa downloads ou pessoas garantidamente únicas.
+        </p>
       </section>
 
       <section class="features section-shell" id="recursos">
@@ -167,22 +191,22 @@
             <div class="platform-label"><span>ATUALIZADA</span> ANDROID</div>
             <h3>HunteraFarm Mobile</h3>
             <p>Até quatro contas separadas e mantidas carregadas em aparelhos compatíveis, para alternar sem recarregar cada página.</p>
-            <div class="download-points"><span>APK beta 0.1.2</span><span>Android 7+</span><span>Troca sem recarregar</span></div>
-            <a class="button button-inverse android-download-link" href="#baixar" aria-label="Baixar HunteraFarm 0.1.2 beta para Android">
+            <div class="download-points"><span>APK beta 0.1.3</span><span>Android 7+</span><span>Troca sem recarregar</span></div>
+            <a class="button button-inverse android-download-link" href="#baixar" aria-label="Baixar HunteraFarm 0.1.3 beta para Android">
               <span>Baixar APK para Android</span><span aria-hidden="true">↓</span>
             </a>
-            <small><strong>APK beta 0.1.2:</strong> as telas abertas ficam carregadas para troca rápida, sem recarregar na alternância normal. Esse modo pode usar mais RAM; o botão Fechar libera a memória da conta. Se faltar memória, o Android pode encerrar uma tela e ela precisará recarregar ao ser aberta novamente. Para várias contas, mantenha o Android System WebView atualizado. O Android pode pedir autorização para instalar apps desconhecidos e exibir uma verificação do Play Protect. Atualizações desta beta podem exigir desinstalar a anterior, apagando as sessões e os logins salvos no app.</small>
+            <small><strong>APK beta 0.1.3:</strong> mantém as telas carregadas e adiciona a contagem anônima opcional. O botão Uso ON/OFF permite interromper ou reativar o envio. Esse modo pode usar mais RAM; Fechar libera a memória da conta. O Android pode encerrar uma tela se faltar memória. Atualizações desta beta podem exigir desinstalar a anterior, apagando sessões e logins salvos.</small>
           </article>
 
           <article class="download-card windows-download-card">
-            <div class="platform-label">WINDOWS 64-BIT · VERSÃO 1.2.0</div>
+            <div class="platform-label">WINDOWS 64-BIT · VERSÃO 1.2.1</div>
             <h3>HunteraFarm para PC</h3>
             <p>Use o instalador tradicional ou baixe a edição portátil em ZIP, sem instalação.</p>
             <div class="windows-actions">
-              <a class="button button-primary download-link" href="#baixar" aria-label="Baixar instalador do HunteraFarm 1.2.0 para Windows">
+              <a class="button button-primary download-link" href="#baixar" aria-label="Baixar instalador do HunteraFarm 1.2.1 para Windows">
                 <span>Instalador EXE</span><span aria-hidden="true">↓</span>
               </a>
-              <a class="button button-secondary portable-download-link" href="#baixar" aria-label="Baixar versão portátil do HunteraFarm 1.2.0 para Windows em ZIP">
+              <a class="button button-secondary portable-download-link" href="#baixar" aria-label="Baixar versão portátil do HunteraFarm 1.2.1 para Windows em ZIP">
                 <span>Portátil ZIP</span><span aria-hidden="true">↓</span>
               </a>
             </div>
@@ -211,7 +235,7 @@
 
       <section class="notice-section section-shell">
         <div class="notice-mark">!</div>
-        <div><h2>Projeto independente e não oficial</h2><p>HunteraFarm não possui vínculo com o Huntera ou seus responsáveis. Use suas contas de acordo com os termos e regras do jogo.</p></div>
+        <div><h2>Projeto independente e não oficial</h2><p>HunteraFarm não possui vínculo com o Huntera ou seus responsáveis. A medição anônima pode ser desligada no app e não envia login nem dados do jogo. <a href="https://github.com/cacor11/HunteraFarm/blob/main/stats-worker/PRIVACY.md" target="_blank" rel="noreferrer">Ver privacidade ↗</a></p></div>
       </section>
 
       <footer class="site-footer">
