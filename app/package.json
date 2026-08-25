@@ -1,6 +1,6 @@
 {
   "name": "hunterafarm",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Cliente não oficial com uma a quatro sessões isoladas do Huntera.",
   "main": "src/main.cjs",
   "author": "HunteraFarm",

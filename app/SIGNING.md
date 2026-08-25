@@ -15,6 +15,12 @@ As chaves privadas nunca devem ser adicionadas ao repositório. O processo aceit
 Certificados autoassinados não são usados em versões públicas, pois não estabelecem
 confiança para outros computadores Windows.
 
+A versão 1.2.1, assim como a 1.2.0, foi autorizada pelo mantenedor como exceção pública sem assinatura,
+com hashes SHA-256 e aviso explícito sobre o SmartScreen. Uma compilação de revisão
+do mesmo commit recebeu atestação de procedência; os arquivos da Release têm hashes
+próprios. Essa exceção não altera o processo exigido para identificar uma versão como
+assinada.
+
 ## Compilação local verificável
 
 Requisitos: Windows x64, Node.js 22.12 ou superior e pnpm.
