@@ -4,8 +4,8 @@ const REPOSITORY_NAME = 'HunteraFarm';
 const RELEASE_TAG = 'v1.2.0';
 const INSTALLER_NAME = 'HunteraFarm-Setup-1.2.0-x64.exe';
 const PORTABLE_NAME = 'HunteraFarm-Sem-Instalar-1.2.0-x64.zip';
-const ANDROID_RELEASE_TAG = 'v0.1.1-android-beta';
-const ANDROID_APK_NAME = 'HunteraFarm-Android-0.1.1-beta.apk';
+const ANDROID_RELEASE_TAG = 'v0.1.2-android-beta';
+const ANDROID_APK_NAME = 'HunteraFarm-Android-0.1.2-beta.apk';
 
 function configureDownloads() {
   const releaseUrl = `https://github.com/${GITHUB_OWNER}/${REPOSITORY_NAME}/releases/download/${RELEASE_TAG}/${INSTALLER_NAME}`;
