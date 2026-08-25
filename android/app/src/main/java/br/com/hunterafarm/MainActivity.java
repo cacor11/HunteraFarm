@@ -43,6 +43,7 @@ import androidx.webkit.WebViewCompat;
 import androidx.webkit.WebViewFeature;
 
 import br.com.hunterafarm.accounts.AccountSlotManager;
+import br.com.hunterafarm.analytics.AnonymousUsageReporter;
 import br.com.hunterafarm.navigation.HunteraNavigationPolicy;
 import br.com.hunterafarm.storage.AccountPreferences;
 
@@ -77,9 +78,11 @@ public final class MainActivity extends ComponentActivity {
     private Button reloadButton;
     private Button addAccountButton;
     private Button closeAccountButton;
+    private Button usageStatsButton;
     private Button supportButton;
 
     private AccountPreferences accountPreferences;
+    private AnonymousUsageReporter usageReporter;
     private AccountSlotManager slotManager;
     private boolean supportsMultipleProfiles;
     private boolean activityDestroyed;
@@ -97,6 +100,7 @@ public final class MainActivity extends ComponentActivity {
         setupSystemBarInsets();
         applyCompactChrome(getResources().getConfiguration());
         accountPreferences = new AccountPreferences(this);
+        usageReporter = new AnonymousUsageReporter(getApplicationContext());
         supportsMultipleProfiles = supportsMultipleProfilesSafely();
         slotManager = new AccountSlotManager(
                 supportsMultipleProfiles ? AccountSlotManager.MAX_PROFILE_SLOTS : 1,
@@ -131,6 +135,7 @@ public final class MainActivity extends ComponentActivity {
         reloadButton = findViewById(R.id.reloadButton);
         addAccountButton = findViewById(R.id.addAccountButton);
         closeAccountButton = findViewById(R.id.closeAccountButton);
+        usageStatsButton = findViewById(R.id.usageStatsButton);
         supportButton = findViewById(R.id.supportButton);
     }
 
@@ -173,6 +178,7 @@ public final class MainActivity extends ComponentActivity {
 
         addAccountButton.setOnClickListener(view -> addAccount());
         closeAccountButton.setOnClickListener(view -> confirmCloseSelectedAccount());
+        usageStatsButton.setOnClickListener(view -> showUsagePrivacyDialog());
         supportButton.setOnClickListener(view -> showSupportDialog());
         compatibilityBanner.setOnClickListener(view -> showCompatibilityDialog());
     }
@@ -665,6 +671,17 @@ public final class MainActivity extends ComponentActivity {
         reloadButton.setEnabled(slotManager != null);
         addAccountButton.setEnabled(supportsMultipleProfiles && slotManager.canAdd());
         closeAccountButton.setEnabled(slotManager.canRemove());
+        renderUsageStatsButton();
+    }
+
+    private void renderUsageStatsButton() {
+        boolean enabled = usageReporter.isEnabled();
+        usageStatsButton.setText(enabled ? R.string.usage_on_short : R.string.usage_off_short);
+        usageStatsButton.setContentDescription(getString(
+                enabled
+                        ? R.string.usage_enabled_description
+                        : R.string.usage_disabled_description
+        ));
     }
 
     private void persistSlotState() {
@@ -757,6 +774,37 @@ public final class MainActivity extends ComponentActivity {
                 .setMessage(R.string.support_message)
                 .setNegativeButton(R.string.close_dialog, null)
                 .setPositiveButton(R.string.copy_pix, (dialog, which) -> copyPix())
+                .show();
+    }
+
+    private void showUsagePrivacyDialog() {
+        if (isFinishing() || activityDestroyed) {
+            return;
+        }
+
+        boolean enabled = usageReporter.isEnabled();
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.usage_privacy_title)
+                .setMessage(
+                        enabled
+                                ? R.string.usage_privacy_enabled_message
+                                : R.string.usage_privacy_disabled_message
+                )
+                .setNegativeButton(R.string.close_dialog, null)
+                .setPositiveButton(
+                        enabled ? R.string.disable_counting : R.string.enable_counting,
+                        (dialog, which) -> {
+                            usageReporter.setEnabled(!enabled);
+                            renderUsageStatsButton();
+                            Toast.makeText(
+                                    this,
+                                    enabled
+                                            ? R.string.usage_disabled_confirmation
+                                            : R.string.usage_enabled_confirmation,
+                                    Toast.LENGTH_SHORT
+                            ).show();
+                        }
+                )
                 .show();
     }
 
@@ -994,6 +1042,7 @@ public final class MainActivity extends ComponentActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        usageReporter.onActivityForegrounded();
         for (WebView webView : new ArrayList<>(accountWebViews.values())) {
             try {
                 webView.onResume();
@@ -1006,6 +1055,7 @@ public final class MainActivity extends ComponentActivity {
 
     @Override
     protected void onPause() {
+        usageReporter.onActivityBackgrounded();
         setGlobalWebViewTimersPaused(true);
         for (WebView webView : new ArrayList<>(accountWebViews.values())) {
             try {
@@ -1053,6 +1103,7 @@ public final class MainActivity extends ComponentActivity {
     @Override
     protected void onDestroy() {
         activityDestroyed = true;
+        usageReporter.destroy();
         destroyAllWebViews();
         super.onDestroy();
     }
