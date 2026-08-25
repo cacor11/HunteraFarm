@@ -3,7 +3,21 @@
 const test = require('node:test')
 const assert = require('node:assert/strict')
 
-const { ACCOUNT_COUNT, GRID_GAP, TOOLBAR_HEIGHT, calculateLayout } = require('../src/layout.cjs')
+const {
+  ACCOUNT_COUNT,
+  GRID_GAP,
+  TOOLBAR_HEIGHT,
+  calculateLayout,
+  zoomForLayout
+} = require('../src/layout.cjs')
+
+test('zoom diminui automaticamente somente na grade', () => {
+  assert.equal(zoomForLayout('single', 4), 1)
+  assert.equal(zoomForLayout('grid', 1), 1)
+  assert.equal(zoomForLayout('grid', 2), 0.8)
+  assert.equal(zoomForLayout('grid', 3), 0.7)
+  assert.equal(zoomForLayout('grid', 4), 0.7)
+})
 
 test('modo de uma conta mostra somente a conta aberta selecionada', () => {
   const first = calculateLayout(1200, 800, 'single', 1, [1, 2])
