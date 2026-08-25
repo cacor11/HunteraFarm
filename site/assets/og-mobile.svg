@@ -21,13 +21,13 @@
 
   <g transform="translate(74 177)">
     <rect width="202" height="34" rx="17" fill="#b8ff5b" />
-    <text x="101" y="23" text-anchor="middle" fill="#07100d" font-family="Segoe UI,Arial,sans-serif" font-size="14" font-weight="900" letter-spacing="1.5">NOVO · ANDROID BETA</text>
+    <text x="101" y="23" text-anchor="middle" fill="#07100d" font-family="Segoe UI,Arial,sans-serif" font-size="14" font-weight="900" letter-spacing="1.5">ANDROID 0.1.2 BETA</text>
   </g>
 
   <text x="72" y="284" fill="#f4f7ed" font-family="Segoe UI,Arial,sans-serif" font-size="66" font-weight="800" letter-spacing="-3">AGORA NO</text>
   <text x="72" y="354" fill="#b8ff5b" font-family="Segoe UI,Arial,sans-serif" font-size="72" font-weight="850" letter-spacing="-3">CELULAR</text>
-  <text x="76" y="414" fill="#aebbb4" font-family="Segoe UI,Arial,sans-serif" font-size="24">Até 4 contas separadas em aparelhos compatíveis.</text>
-  <text x="76" y="451" fill="#7f9087" font-family="Segoe UI,Arial,sans-serif" font-size="20">Uma conta carregada por vez para economizar RAM.</text>
+  <text x="76" y="414" fill="#aebbb4" font-family="Segoe UI,Arial,sans-serif" font-size="24">Até 4 contas carregadas em aparelhos compatíveis.</text>
+  <text x="76" y="451" fill="#7f9087" font-family="Segoe UI,Arial,sans-serif" font-size="20">Troque entre elas sem recarregar cada página.</text>
 
   <g transform="translate(74 506)">
     <rect width="142" height="44" rx="22" fill="#14231c" stroke="#b8ff5b" stroke-opacity=".34" />
@@ -44,28 +44,28 @@
     <rect x="126" y="27" width="98" height="9" rx="5" fill="#38463f" />
     <image href="hunterafarm-icon.png" x="129" y="61" width="92" height="92" />
     <text x="175" y="179" text-anchor="middle" fill="#f4f7ed" font-family="Segoe UI,Arial,sans-serif" font-size="28" font-weight="800">HunteraFarm</text>
-    <text x="175" y="205" text-anchor="middle" fill="#8fa097" font-family="Segoe UI,Arial,sans-serif" font-size="14">MODO LEVE</text>
+    <text x="175" y="205" text-anchor="middle" fill="#8fa097" font-family="Segoe UI,Arial,sans-serif" font-size="14">TROCA INSTANTÂNEA</text>
 
     <g transform="translate(36 237)">
       <rect width="278" height="54" rx="14" fill="#b8ff5b" />
       <circle cx="31" cy="27" r="17" fill="#07100d" />
       <text x="31" y="33" text-anchor="middle" fill="#b8ff5b" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="900">1</text>
-      <text x="60" y="33" fill="#07100d" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="800">Conta 1 ativa</text>
+      <text x="60" y="33" fill="#07100d" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="800">Conta 1 em uso</text>
 
       <rect y="66" width="278" height="54" rx="14" fill="#1b2923" />
       <circle cx="31" cy="93" r="17" fill="#2b3b33" />
       <text x="31" y="99" text-anchor="middle" fill="#c3cec7" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="900">2</text>
-      <text x="60" y="99" fill="#d5dfd8" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700">Conta 2 salva</text>
+      <text x="60" y="99" fill="#d5dfd8" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700">Conta 2 carregada</text>
 
       <rect y="132" width="278" height="54" rx="14" fill="#1b2923" />
       <circle cx="31" cy="159" r="17" fill="#2b3b33" />
       <text x="31" y="165" text-anchor="middle" fill="#c3cec7" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="900">3</text>
-      <text x="60" y="165" fill="#d5dfd8" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700">Conta 3 salva</text>
+      <text x="60" y="165" fill="#d5dfd8" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700">Conta 3 carregada</text>
 
       <rect y="198" width="278" height="54" rx="14" fill="#1b2923" />
       <circle cx="31" cy="225" r="17" fill="#2b3b33" />
       <text x="31" y="231" text-anchor="middle" fill="#c3cec7" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="900">4</text>
-      <text x="60" y="231" fill="#d5dfd8" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700">Conta 4 salva</text>
+      <text x="60" y="231" fill="#d5dfd8" font-family="Segoe UI,Arial,sans-serif" font-size="18" font-weight="700">Conta 4 carregada</text>
     </g>
   </g>
 </svg>
