@@ -51,6 +51,23 @@
         <span class="control-divider" aria-hidden="true"></span>
 
         <button
+          id="stats-button"
+          class="control-button stats-button active"
+          type="button"
+          title="Contagem anônima de uso ativada"
+          aria-label="Desativar contagem anônima de uso"
+          aria-pressed="true"
+        >
+          <svg class="stats-on" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M5 19V13M12 19V8M19 19V4" />
+          </svg>
+          <svg class="stats-off" viewBox="0 0 24 24" aria-hidden="true" hidden>
+            <path d="M5 19V13M12 19V8M19 19V4M3 3l18 18" />
+          </svg>
+          <span class="control-label" data-stats-label>Contagem ligada</span>
+        </button>
+
+        <button
           id="reload-button"
           class="icon-button"
           type="button"

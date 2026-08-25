@@ -8,6 +8,7 @@ const muteButton = document.querySelector('#mute-button')
 const clearButton = document.querySelector('#clear-button')
 const fullscreenButton = document.querySelector('#fullscreen-button')
 const supportButton = document.querySelector('#support-button')
+const statsButton = document.querySelector('#stats-button')
 const announcer = document.querySelector('#announcer')
 const api = window.hunteraFarm
 
@@ -17,6 +18,7 @@ const previewState = {
   fullscreen: false,
   maxAccounts: 4,
   openAccountCount: 1,
+  anonymousStatsEnabled: true,
   accounts: [
     {
       id: 1,
@@ -199,6 +201,25 @@ function render(state) {
   fullscreenButton.querySelector('.expand-icon').hidden = state.fullscreen
   fullscreenButton.querySelector('.contract-icon').hidden = !state.fullscreen
   fullscreenButton.title = state.fullscreen ? 'Sair da tela cheia (F11)' : 'Tela cheia (F11)'
+
+  const anonymousStatsEnabled = state.anonymousStatsEnabled !== false
+  statsButton.classList.toggle('active', anonymousStatsEnabled)
+  statsButton.classList.toggle('stats-disabled', !anonymousStatsEnabled)
+  statsButton.setAttribute('aria-pressed', String(anonymousStatsEnabled))
+  statsButton.setAttribute(
+    'aria-label',
+    anonymousStatsEnabled
+      ? 'Desativar contagem anônima de uso'
+      : 'Ativar contagem anônima de uso'
+  )
+  statsButton.title = anonymousStatsEnabled
+    ? 'Contagem anônima ativada — clique para desativar'
+    : 'Contagem anônima desativada — clique para ativar'
+  statsButton.querySelector('.stats-on').hidden = !anonymousStatsEnabled
+  statsButton.querySelector('.stats-off').hidden = anonymousStatsEnabled
+  statsButton.querySelector('[data-stats-label]').textContent = anonymousStatsEnabled
+    ? 'Contagem ligada'
+    : 'Contagem desligada'
 }
 
 async function runCommand(request, announcement) {
@@ -275,6 +296,19 @@ fullscreenButton.addEventListener('click', () => {
 
 supportButton.addEventListener('click', () => {
   void runCommand({ command: 'open-support' }, 'Área de apoio aberta.')
+})
+
+statsButton.addEventListener('click', async () => {
+  const enabled = currentState.anonymousStatsEnabled === false
+  const result = await runCommand({ command: 'set-anonymous-stats', enabled })
+  if (!result || !result.ok) return
+
+  announcer.textContent = enabled
+    ? 'Contagem anônima de uso ativada.'
+    : 'Contagem anônima de uso desativada imediatamente.'
+  if (!result.persisted) {
+    announcer.textContent += ' Não foi possível salvar essa preferência no computador.'
+  }
 })
 
 render(previewState)

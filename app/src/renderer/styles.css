@@ -424,6 +424,24 @@ button {
   border-color: var(--accent-strong);
 }
 
+.stats-button {
+  color: #a9caff;
+  background: rgba(105, 160, 255, 0.07);
+  border-color: rgba(140, 180, 255, 0.2);
+}
+
+.stats-button.active {
+  color: #bdd6ff;
+  background: rgba(105, 160, 255, 0.11);
+  border-color: rgba(140, 180, 255, 0.3);
+}
+
+.stats-button.stats-disabled {
+  color: #94a39a;
+  background: rgba(255, 255, 255, 0.025);
+  border-color: rgba(210, 241, 220, 0.08);
+}
+
 .control-button {
   gap: 7px;
   padding: 0 11px;
@@ -541,6 +559,11 @@ button {
   }
 
   .support-button {
+    width: 39px;
+    padding: 0;
+  }
+
+  .stats-button {
     width: 39px;
     padding: 0;
   }
