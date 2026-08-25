@@ -37,7 +37,13 @@ Tambem e possivel abrir a pasta `android` no Android Studio e executar a configu
 
 O workflow `Android Beta` executa analise do codigo, testes unitarios e a compilacao sempre que houver mudancas no projeto Android. Ao terminar, o APK pode ser baixado na pagina da execucao, na secao **Artifacts**, com o nome `HunteraFarm-Android-Beta-*`.
 
-Dentro do artefato, o arquivo publico se chama `HunteraFarm-Android-0.1.2-beta.apk` e acompanha um `SHA256SUMS.txt` para verificacao de integridade.
+Dentro do artefato, o arquivo publico se chama `HunteraFarm-Android-0.1.3-beta.apk` e acompanha um `SHA256SUMS.txt` para verificacao de integridade.
+
+## Contagem anonima
+
+O endpoint HTTPS publico fica centralizado na constante `HEARTBEAT_ENDPOINT`, no arquivo `app/src/main/java/br/com/hunterafarm/analytics/AnonymousUsageReporter.java`.
+
+O endpoint recebe um `POST` JSON com apenas `installation_id`, `platform` e `version`. O servidor deve atualizar o ultimo horario visto desse UUID para calcular usuarios online e registrar o UUID uma unica vez para o total aproximado de instalacoes. Nao use o endereco IP ou outros cabecalhos como identificador.
 
 ## Aviso sobre a assinatura
 
