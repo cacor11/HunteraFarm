@@ -22,6 +22,21 @@ nav { display: flex; align-items: center; gap: 28px; font-size: 14px; font-weigh
 .nav-download { padding: 11px 17px; border: 1px solid rgba(184,255,91,.55); border-radius: 999px; color: var(--lime); transition: background .2s ease, color .2s ease; }
 .nav-download:hover { background: var(--lime); color: var(--ink); }
 
+.sunset-notice { position: relative; overflow: hidden; display: grid; grid-template-columns: 1.25fr .75fr; gap: 34px; margin-top: 34px; padding: 38px 42px; border: 1px solid rgba(255, 198, 105, .34); border-radius: 22px; background: linear-gradient(135deg, rgba(255, 198, 105, .12), rgba(184, 255, 91, .035) 58%), #101914; box-shadow: 0 26px 70px rgba(0, 0, 0, .2); }
+.sunset-notice::after { content: ""; position: absolute; width: 320px; height: 320px; right: -120px; top: -170px; border-radius: 50%; background: radial-gradient(circle, rgba(255, 198, 105, .13), transparent 68%); pointer-events: none; }
+.sunset-copy { position: relative; z-index: 1; }
+.sunset-label { margin: 0 0 15px; display: flex; align-items: center; gap: 9px; color: #ffc669; font-size: 10px; font-weight: 900; letter-spacing: 1.6px; }
+.sunset-label span { width: 24px; height: 24px; display: grid; place-items: center; border: 1px solid rgba(255, 198, 105, .4); border-radius: 50%; }
+.sunset-copy h2 { max-width: 720px; margin: 0; font-size: clamp(34px, 4.1vw, 55px); line-height: 1.02; letter-spacing: -2.5px; }
+.sunset-copy > p:not(.sunset-label) { max-width: 680px; margin: 17px 0 0; color: #aebbb4; font-size: 15px; line-height: 1.65; }
+.sunset-download { width: fit-content; min-height: 48px; margin-top: 24px; border: 1px solid rgba(255, 198, 105, .45); color: #ffdca5; background: rgba(255, 198, 105, .06); }
+.sunset-download:hover { border-color: #ffc669; background: rgba(255, 198, 105, .12); }
+.altgrid-teaser { position: relative; z-index: 1; align-self: stretch; display: flex; flex-direction: column; justify-content: center; padding: 28px; border: 1px solid rgba(184, 255, 91, .18); border-radius: 17px; background: rgba(7, 16, 13, .58); }
+.altgrid-status { width: fit-content; padding: 6px 9px; border-radius: 999px; background: rgba(184, 255, 91, .11); color: var(--lime); font-size: 8px; font-weight: 900; letter-spacing: 1.2px; }
+.altgrid-teaser strong { margin-top: 17px; color: var(--lime); font-size: clamp(38px, 4.5vw, 58px); line-height: .95; letter-spacing: -2.5px; }
+.altgrid-teaser p { margin: 14px 0 0; color: #d2dbd5; font-size: 14px; line-height: 1.55; }
+.altgrid-teaser small { margin-top: 8px; color: #788a80; font-size: 11px; font-weight: 700; }
+
 .hero { width: min(1180px, calc(100% - 48px)); min-height: 690px; margin: 0 auto; display: grid; grid-template-columns: .91fr 1.09fr; align-items: center; gap: 70px; padding: 78px 0 92px; }
 .eyebrow { margin: 0 0 24px; display: flex; align-items: center; gap: 10px; color: var(--lime); font-size: 12px; font-weight: 800; letter-spacing: 1.8px; text-transform: uppercase; }
 .eyebrow span { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 18px rgba(184,255,91,.8); }
@@ -100,6 +115,7 @@ h1 em { display: block; margin-top: 9px; color: var(--lime); font-style: normal;
 .usage-stats-note { grid-column: 1 / -1; margin: -22px 0 0; color: #65766d; font-size: 11px; line-height: 1.55; }
 
 @media (max-width: 980px) {
+  .sunset-notice { grid-template-columns: 1fr; }
   .hero { grid-template-columns: 1fr; gap: 34px; padding-top: 70px; }
   .hero-copy { max-width: 700px; }
   .product-stage { min-height: 470px; }
@@ -111,6 +127,10 @@ h1 em { display: block; margin-top: 9px; color: var(--lime); font-style: normal;
   nav { gap: 10px; }
   .nav-link { display: none; }
   .nav-download { padding: 9px 13px; }
+  .sunset-notice { width: min(100% - 30px, 1180px); margin-top: 22px; padding: 28px 23px; }
+  .sunset-copy h2 { font-size: 38px; letter-spacing: -2px; }
+  .sunset-download { width: 100%; }
+  .altgrid-teaser { padding: 24px 21px; }
   .hero { padding: 58px 0 72px; min-height: auto; }
   h1 { font-size: clamp(43px, 13vw, 60px); letter-spacing: -3px; }
   .hero-text { font-size: 16px; }
