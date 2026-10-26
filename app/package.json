@@ -28,7 +28,7 @@
   },
   "devDependencies": {
     "electron": "43.4.1",
-    "electron-builder": "26.15.3"
+    "electron-builder": "26.18.0"
   },
   "build": {
     "appId": "br.com.hunterafarm.app",
