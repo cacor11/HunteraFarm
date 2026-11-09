@@ -31,7 +31,7 @@ jobs:
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
 
       - name: Preparar pnpm e Node.js
-        uses: pnpm/setup@c8e77b72cd6022852162c92aa10e7e72b7209c9b # v2
+        uses: pnpm/setup@42a113bce9c1b3720b722218fffa75cda50175ca # v2
         with:
           version: 11.19.0
           runtime: node@24
